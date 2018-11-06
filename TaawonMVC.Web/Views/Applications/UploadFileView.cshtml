@@ -1,0 +1,66 @@
+﻿@using Abp.Web.Mvc.Extensions
+@using TaawonMVC.Web.Models.Common.Modals
+@model TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+@{
+    ViewBag.Title = "UploadFileView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UploadFileView</h2>
+
+<div>
+
+
+    <form name="UploadFiles" id="UploadFiles" enctype="multipart/form-data" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.files, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple", @id = "datafile" })
+                    @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @*<input type="submit" value="Upload" id="submitUploadFile" class="btn btn-primary submitUploadFile" />*@
+                    <button type="button" name="submitUploadFile" id="submitUploadFile" onclick="UploadShowFiles()" class="btn btn-primary ">Upload</button>
+
+                </div>
+
+                <input name="buildingId" id="buildingId" type="hidden" value="@Model.Building.Id" />
+
+
+
+
+            </div>
+
+
+        </div>
+        <br />
+    </form>
+
+    <div id="progress" style="display: none">
+        <div id="bar">File Uploaded Successfuly</div>
+    </div>
+    <br />
+    <div id="ShowFiles">
+
+    </div>
+    <div id="status"></div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+

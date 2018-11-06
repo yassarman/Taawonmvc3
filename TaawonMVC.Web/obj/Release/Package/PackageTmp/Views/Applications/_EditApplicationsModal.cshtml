@@ -1,0 +1,1077 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model  TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+@{
+    ViewBag.Title = "EditApplication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/MultiSelectDropDownList.js"></script>
+<link href="~/css/MultiSelectDropDownList.css" rel="stylesheet" />
+<style>
+
+    input[type="radio"] {
+        display: inline;
+    }
+
+    input.invalid {
+        background-color: #ffdddd;
+    }
+
+    /* Hide all steps by default: */
+    .tab {
+        display: none;
+    }
+
+    button {
+        background-color: #526d89;
+        color: #ffffff;
+        border: none;
+        padding: 7px 20px;
+        font-size: 17px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+    #prevBtn {
+        background-color: #bbbbbb;
+    }
+
+    .step {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+    }
+
+        .step.active {
+            opacity: 1;
+        }
+
+        /* Mark the steps that are finished and valid: */
+        .step.finish {
+            background-color: #4CAF50;
+        }
+</style>
+
+<h2>Edit Application</h2>
+
+<form id="regForm" action="@Url.Action("UpdateApplication","Applications")" class="credit-card-div">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="tab">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6 ">
+                            <span class="help-block text-muted small-font">Building Number And Address</span>
+
+                            <select name="buildingnumber" id="buildingnumber" onchange="PopulateFunction()" class="form-control">
+
+                                @foreach (var building in @Model.Buildings)
+                                {
+                                    var BuildingNoAddress = building.buildingNo + " / " + building.streetName + " " + "St.";
+
+                                    if (building.Id == @Model.applicationsOutput.buildingId)
+
+                                    {
+                                        <option value="@building.Id" selected>@BuildingNoAddress</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@building.Id">@BuildingNoAddress</option>
+
+                                    }
+
+                               }
+
+                            </select>
+                        </div>
+                    @*<div class="col-md-6 col-sm-6 col-xs-6 p-l-0 m-l-0 p-t-30">
+                            <div class="container col-md-6 col-sm-6 col-xs-6 pull-right">
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn pull-right" data-toggle="modal" data-target="#UserCreateModal">
+                                        <i class="material-icons">add</i>
+                                    </button>
+                                    <button type="button" class="btn pull-right" data-toggle="modal" data-target="#CreateBuildingUnitModal">
+                                        <i class="material-icons">add</i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>*@
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6 p-t-10">
+                        <span class="help-block text-muted small-font">Building Units</span>
+                        <div id="UBUDDL2">
+                            <select name="dropDownBuildingUnitApp" id="dropDownBuildingUnitApp" class="form-control">
+                                @foreach (var buildingUnit in @Model.BuildingUnits)
+                                {
+                                    if (buildingUnit.Id == @Model.applicationsOutput.buildingUnitId)
+                                    {
+                                        <option value="@buildingUnit.Id" selected>@buildingUnit.ResidentName</option>
+
+                                    }
+                                    else
+                                    {
+                                        <option value="@buildingUnit.Id">@buildingUnit.ResidentName</option>
+                                    }
+
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-12">
+                        <span class="help-block text-muted small-font">Full Name</span>
+                        <input value="@Model.applicationsOutput.fullName" name="fullname" id="fullname" type="text" class="form-control" oninput="this.className = 'form-control'" placeholder="Full Name" autocomplete="off" required />
+                        <input type="hidden" id="buildingId1" name="buildingId1">
+                        <input type="hidden" value="@Model.applicationsOutput.Id" name="ApplicationId"  id="applicationId">
+                    </div>
+                </div>
+                <div class="row ">
+
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <span class="help-block text-muted small-font"> Street Name</span>
+                        <input value="@Model.buildingOutput.streetName" oninput="this.className = 'form-control'" name="buildingaddress" id="buildingaddress" type="text" class="form-control" placeholder="Building Address" />
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <span class="help-block text-muted small-font"> Mobile Number</span>
+                        <input value="@Model.applicationsOutput.phoneNumber1" oninput="this.className = 'form-control'" name="phoneNumber1" id="phoneNumber1" type="text" class="form-control" placeholder="Mobile Number" />
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+
+                        <span class="help-block text-muted small-font"> Phone Number</span>
+                        <input value="@Model.applicationsOutput.phoneNumber2" oninput="this.className = 'form-control'" name="phoneNumber2" id="phoneNumber2" type="text" class="form-control" placeholder="Phone Number" />
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+
+                        <span class="help-block text-muted small-font"> Building Id </span>
+                        <input value="@Model.applicationsOutput.buildingId" oninput="this.className = 'form-control'" name="BuildingId2" id="BuildingId2" type="text" class="form-control" placeholder="Building Id" />
+                    </div>
+                    <br />
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <span class="help-block text-muted small-font">Date of Residence</span>
+                        <input value="@Model.applicationsOutput.housingSince" oninput="this.className = 'form-control'" name="housingSince" id="housingSince" type="text" class="form-control" placeholder="Year" />
+                    </div>
+                </div>
+            </div>
+            <div class="tab">
+                    <div class="row ">
+                        <div class="col-md-6 col-sm-6 col-xs-6 p-t-5">
+
+                            <span>Have you received previous funding/restoration ? : </span>
+                            @{
+                                var isChecked = Model.applicationsOutput.isThereFundingOrPreviousRestoration;
+                               // var ischeckedBooleanValue = false;
+
+                                if (isChecked == 0)
+                                {
+                                    @Html.RadioButton("isThereFundingOrPreviousRestoration", 0, new { id = "no", @checked = true, onChange = "findselected()" })
+                                    @Html.Label("no", "No")
+
+                                    @Html.RadioButton("isThereFundingOrPreviousRestoration", 1, new { id = "yes", onChange = "findselected()" })
+                                    @Html.Label("yes", "Yes")
+
+                                }
+                                else
+                                {
+                                    @Html.RadioButton("isThereFundingOrPreviousRestoration", 0, new { id = "no",  onChange = "findselected()" })
+                                    @Html.Label("no", "No")
+
+                                    @Html.RadioButton("isThereFundingOrPreviousRestoration", 1, new { id = "yes", @checked = true, onChange = "findselected()" })
+                                    @Html.Label("yes", "Yes")
+                                }
+
+                            }
+
+
+                        </div>
+                        <div id="0" class="col-md-6 col-sm-6 col-xs-6 p-t-5">
+                            @{
+                                // var isChecked = Model.applicationsOutput.isThereFundingOrPreviousRestoration;
+                                if (isChecked == 0)
+                                {
+                                    <input value="@Model.applicationsOutput.previousRestorationSource" oninput="this.className = 'form-control'" disabled name="previousRestorationSource" id="previousRestorationSource" type="text" class="form-control" placeholder="Funding source" />
+                                }
+                                else
+                                {
+                                    <input value="@Model.applicationsOutput.previousRestorationSource" oninput="this.className = 'form-control'"  name="previousRestorationSource" id="previousRestorationSource" type="text" class="form-control" placeholder="Funding source" />
+
+                                }
+
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        <div class="col-md-6 col-sm-6 col-xs-6 p-t-5">
+                            <span>Is there anyone interested in repairing the property? : </span>
+                            @{
+                                var isCheckedIRI = Model.applicationsOutput.isThereInterestedRepairingEntity;
+                                if (isCheckedIRI == 0)
+                                {
+                                    @Html.RadioButton("isThereInterestedRepairingEntity", 0, new { id = "no1", @checked = true, onChange = "findselectedEntity()" })
+                                    @Html.Label("no1", "No")
+
+                                    @Html.RadioButton("isThereInterestedRepairingEntity", 1, new { id = "yes1", onChange = "findselectedEntity()" })
+                                    @Html.Label("yes1", "Yes")
+                                }
+                                else
+                                {
+                                    @Html.RadioButton("isThereInterestedRepairingEntity", 0, new { id = "no1",  onChange = "findselectedEntity()" })
+                                    @Html.Label("no1", "No")
+
+                                    @Html.RadioButton("isThereInterestedRepairingEntity", 1, new { id = "yes1", @checked = true, onChange = "findselectedEntity()" })
+                                    @Html.Label("yes1", "Yes")
+
+                                }
+
+                            }
+
+                        </div>
+                        <div id="0" class="col-md-6 col-sm-6 col-xs-6 p-t-5">
+                            @{
+                                if (isCheckedIRI == 0)
+                                {
+                                    <input value="@Model.applicationsOutput.interestedRepairingEntityName" oninput="this.className = 'form-control'" disabled name="interestedRepairingEntityName" id="interestedRepairingEntityName" type="text" class="form-control" placeholder="interested Repairing Entity" />
+
+                                }
+                                else
+                                {
+                                    <input value="@Model.applicationsOutput.interestedRepairingEntityName" oninput="this.className = 'form-control'"  name="interestedRepairingEntityName" id="interestedRepairingEntityName" type="text" class="form-control" placeholder="interested Repairing Entity" />
+
+                                }
+
+                            }
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-6 col-sm-6 col-xs-6 p-t-5">
+                            @{ var isInHoushAPP = Model.buildingOutput.isInHoush;}
+                            <span>@L("IsInHoush")</span>
+                            @*@Html.DropDownListFor(m => Model.buildingOutput.isInHoush, Model.YesOrNo, htmlAttributes: new { @class = "form-control", @name = "IsInHoush", @id = "IsInHoush", @required = "true", onchange = "findselectedInHoush()" })*@
+                            <select name="buildingOutput.isInHoush" id="IsInHoush" onchange="findselectedInHoush()" class="form-control">
+                             @{
+                                if (isInHoushAPP == true)
+                                {
+                                   <option value="true" selected>Yes</option>
+                                   <option value="false">No</option>
+                                }
+                                else
+                                {
+                                   <option value="true">Yes</option>
+                                   <option value="false" selected>No</option>
+                                 }
+                             }
+                            </select>
+
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 p-t-25">
+
+                            <div class="form-line" id="idShowMeApplication">
+                                @{
+                                    if (isInHoushAPP == true)
+                                    {
+                                        <input value="@Model.buildingOutput.houshName"  type="text" name="HoushName" id="houshName" class="form-control" required maxlength="255" autocomplete="off" placeholder="Housh Name">
+
+                                    }
+                                    else
+                                    {
+                                        <input value="@Model.buildingOutput.houshName" disabled  type="text" name="HoushName" id="houshName" class="form-control" required maxlength="255" autocomplete="off" placeholder="Housh Name">
+
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-t-5">
+                            <h5>Property Information :</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-t-15">
+
+                            <span>Property ownership : </span>
+                            @{ var checkedPropertyOwnership = Model.applicationsOutput.PropertyOwnerShipId;}
+                            @foreach (var propertyOwnership in Model.PropertyOwnerShips)
+                            { 
+                                if (propertyOwnership.Id == checkedPropertyOwnership)
+                                {
+                                    @Html.RadioButton("PropertyOwnerShip", propertyOwnership.Id, new { id = "no1" + propertyOwnership.Id.ToString(), @checked = true, onChange = "findSelectedProperty()" })
+                                    @Html.Label("no1" + propertyOwnership.Id.ToString(), propertyOwnership.propertyOwnershipName)
+                                }
+                                else
+                                {
+                                    @Html.RadioButton("PropertyOwnerShip", propertyOwnership.Id, new { id = "no1" + propertyOwnership.Id.ToString(), onChange = "findSelectedProperty()" })
+                                    @Html.Label("no1" + propertyOwnership.Id.ToString(), propertyOwnership.propertyOwnershipName)
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <span class="help-block text-muted small-font">Other Ownership Type</span>
+                            @{
+                                if (checkedPropertyOwnership == 4)
+                                {
+                                    <input value="@Model.applicationsOutput.otherOwnershipType" name="otherOwnershipType" id="otherOwnershipType"  type="text" class="form-control" placeholder="Other Ownership Type" oninput="this.className = 'form-control'" />
+
+                                }
+                                else
+                                {
+                                    <input value="@Model.applicationsOutput.otherOwnershipType" name="otherOwnershipType" id="otherOwnershipType" disabled type="text" class="form-control" placeholder="Other Ownership Type" oninput="this.className = 'form-control'" />
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            <div class="tab">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6 p-t-5">
+                        <span class="help-block text-muted small-font">Resident status</span>
+                        <input value="@Model.BuildingUnit.ResidenceStatus" name="residentstatus" id="residentstatus" type="text" class="form-control" placeholder="Resident status" oninput="this.className = 'form-control'" />
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 p-t-5">
+                        <span class="help-block text-muted small-font">Unit Contents</span>
+                        @*<input name="BuildingUnitContents" id="BuildingUnitContents" type="text" class="form-control" placeholder="Building Unit Contents" oninput="this.className = 'form-control'" />*@
+                        <select name="example-getting-started2" id="example-getting-started2" multiple="multiple" class="form-control">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @{ var buildingUnits = Model.BuildingUnit.UnitContentsIds;
+                                            int[] buildingUnitsBytesAsInts = buildingUnits.Select(x => (int)x).ToArray();
+                                            List<int> buildingUnitsList =new List<int>(buildingUnitsBytesAsInts);
+
+                                            }
+
+                                        @foreach (var buildingUnit in Model.BuildingUnitContents)
+                                        {
+                                            if (buildingUnits.Length != 0)
+                                            {
+
+                                                if (buildingUnitsList.Contains(buildingUnit.Id))
+                                                {
+                                                    <option name="buildingUnitContent" value="@buildingUnit.Id" selected>@buildingUnit.UnitPartName</option>
+                                                }
+                                                else
+                                                {
+                                                    <option name="buildingUnitContent" value="@buildingUnit.Id">@buildingUnit.UnitPartName</option>
+                                                }
+                                            }
+
+                                            if (buildingUnits.Length == 0)
+                                            {
+                                                <option name="buildingUnitContent" value="@buildingUnit.Id">@buildingUnit.UnitPartName</option>
+                                            }
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-t-10">
+                        <h5>Type of intervention from the point of view of the beneficiary :</h5>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 p-t-15">
+
+                        <span>Intervention Type : </span>
+                        @{ var checkedInterventionType = Model.applicationsOutput.interventionTypeId;}
+                        @foreach (var interventionType in Model.InterventionTypes)
+                        {
+                            if (interventionType.Id == checkedInterventionType)
+                            {
+                                @Html.RadioButton("interventionTypeName", interventionType.Id, new { id = "no3" + interventionType.Id.ToString(), @checked = true, onChange = "findSelectedIntervention()" })
+                                @Html.Label("no3" + interventionType.Id.ToString(), interventionType.InterventionName)
+                            }
+                            else
+                            {
+                                @Html.RadioButton("interventionTypeName", interventionType.Id, new { id = "no3" + interventionType.Id.ToString(), onChange = "findSelectedIntervention()" })
+                                @Html.Label("no3" + interventionType.Id.ToString(), interventionType.InterventionName)
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    @{
+
+                        if (checkedInterventionType == 8)
+                        {
+
+                            <div class="col-md-6 col-sm-6 col-xs-6 p-t-10" id="rtdiv">
+                                <span class="help-block text-muted small-font">Restoration Type</span>
+                                <select name="example-getting-started" id="example-getting-started" multiple="multiple" onchange="findSelectedRestoration()">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                @{ var restorationtypes = Model.applicationsOutput.restorationTypeIds;
+
+                                                    int[] restorationtypesBytesAsInt = restorationtypes.Select(x => (int)x).ToArray();
+                                                    List<int> restorationtypesList = new List<int>(restorationtypesBytesAsInt);
+
+                                                }
+                                                @foreach (var restorationType in Model.RestorationTypes)
+
+                                                {
+                                                    if (restorationtypes.Length != 0)
+                                                    {
+                                                        if (restorationtypesList.Contains(restorationType.Id))
+                                                        {
+                                                            <option name="restorationType" value="@restorationType.Id" selected>@restorationType.RestorationTypeName</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option name="restorationType" value="@restorationType.Id">@restorationType.RestorationTypeName</option>
+                                                        }
+
+                                                    }
+
+                                                    if (restorationtypes.Length == 0)
+                                                    {
+                                                        <option name="restorationType" value="@restorationType.Id">@restorationType.RestorationTypeName</option>
+
+                                                    }
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </select>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="col-md-6 col-sm-6 col-xs-6 p-t-10" id="rtdiv" hidden>
+                                <span class="help-block text-muted small-font">Restoration Type</span>
+                                <select name="example-getting-started" id="example-getting-started" multiple="multiple" onchange="findSelectedRestoration()">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                @{ var restorationtypes = Model.applicationsOutput.restorationTypeIds;
+
+                                                    int[] restorationtypesBytesAsInt = restorationtypes.Select(x => (int)x).ToArray();
+                                                    List<int> restorationtypesList = new List<int>(restorationtypesBytesAsInt);
+
+                                                }
+                                                @foreach (var restorationType in Model.RestorationTypes)
+
+                                                {
+                                                    if (restorationtypes.Length != 0)
+                                                    {
+                                                        if (restorationtypesList.Contains(restorationType.Id))
+                                                        {
+                                                            <option name="restorationType" value="@restorationType.Id" selected>@restorationType.RestorationTypeName</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option name="restorationType" value="@restorationType.Id">@restorationType.RestorationTypeName</option>
+                                                        }
+
+                                                    }
+
+                                                    if (restorationtypes.Length == 0)
+                                                    {
+                                                        <option name="restorationType" value="@restorationType.Id">@restorationType.RestorationTypeName</option>
+
+                                                    }
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </select>
+                            </div>
+
+                        }
+
+
+
+                    }
+
+                </div>
+                @{
+                    var restorationtypesApp = Model.applicationsOutput.restorationTypeIds;
+                    if (checkedInterventionType == 8)
+                    {
+                        
+                            if (restorationtypesApp[0] == 5)
+                            {
+                                <div class="row" id="ortdiv">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 p-t-15">
+                                        <span class="help-block text-muted small-font">Other Restoration Type  </span>
+                                        <input value="@Model.applicationsOutput.otherRestorationType" name="otherRestorationType" id="otherRestorationType" type="text" class="form-control" placeholder="Restoration Type to add multi select later" oninput="this.className = 'form-control'" />
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row" id="ortdiv">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 p-t-15">
+                                        <span class="help-block text-muted small-font">Other Restoration Type  </span>
+                                        <input value="@Model.applicationsOutput.otherRestorationType" name="otherRestorationType" id="otherRestorationType" disabled type="text" class="form-control" placeholder="Restoration Type to add multi select later" oninput="this.className = 'form-control'" />
+                                    </div>
+                                </div>
+
+                            }
+                        
+
+
+                    }
+                    else
+                    {
+                        <div class="row" id="ortdiv" hidden>
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-t-15">
+                                <span class="help-block text-muted small-font">Other Restoration Type  </span>
+                                <input value="@Model.applicationsOutput.otherRestorationType" name="otherRestorationType" id="otherRestorationType" disabled type="text" class="form-control" placeholder="Other restoration Type" oninput="this.className = 'form-control'" />
+                            </div>
+                        </div>
+
+                    }
+                }
+
+
+
+            </div>
+
+            <div class="tab">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-t-15">
+                            <label for="propertyStatusDescription">Property Status Description :</label>
+                            <textarea class="form-control" rows="5" name="propertyStatusDescription" id="propertyStatusDescription">@Model.applicationsOutput.propertyStatusDescription</textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-t-15">
+                            <label for="requiredRestoration">Required Restoration :</label>
+                            <textarea class="form-control" rows="5" name="requiredRestoration" id="requiredRestoration">@Model.applicationsOutput.requiredRestoration</textarea>
+                        </div>
+                    </div>
+                </div>
+            <div class="row m-t-20 m-r-10">
+                <div style="overflow:auto;">
+                    <div style="float:right;">
+                        <button type="button" onclick="location.href='@Url.Action("Index", "Applications")'">@L("Cancel")</button>
+                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the crurrent tab
+
+    function showTab(n) {
+        // This function will display the specified tab of the form...
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        //... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Next";
+        }
+        //... and run a function that will display the correct step indicator:
+        fixStepIndicator(n)
+    }
+
+    function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("tab");
+        // Exit the function if any field in the current tab is invalid:
+
+        // ===== the if has been hashed to cancel check for input validation 10092018
+        if (n == 1 && !validateForm()) return false;
+        //=====================================================
+
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+        // if you have reached the end of the form...
+        if (currentTab >= x.length) {
+            // ... the form gets submitted:
+            document.getElementById("regForm").submit();
+            return false;
+        }
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        // This function deals with validation of the form fields
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        // y = x[currentTab].getElementsByTagName("input");
+        y = document.getElementById("fullname");
+        a = document.getElementById("buildingaddress");
+        b = document.getElementById("phoneNumber1");
+        c = document.getElementById("phoneNumber2");
+        d = document.getElementById("BuildingId2");
+        e = document.getElementById("housingSince");
+        // f = x[currentTab].getElementById("residentstatus");
+
+        // A loop that checks every input field in the current tab:
+        //for (i = 0; i < y.length; i++) {
+        // If a field is empty...
+        if (y.value == "") {
+            // add an "invalid" class to the field:
+            y.className += " invalid";
+            // and set the current valid status to false
+            valid = false;
+        }
+        if (a.value == "") {
+            // add an "invalid" class to the field:
+            a.className += " invalid";
+            // and set the current valid status to false
+            valid = false;
+        }
+        if (b.value == "") {
+            // add an "invalid" class to the field:
+            b.className += " invalid";
+            // and set the current valid status to false
+            valid = false;
+        }
+        if (c.value == "") {
+            // add an "invalid" class to the field:
+            c.className += " invalid";
+            // and set the current valid status to false
+            valid = false;
+        }
+        if (d.value == "") {
+            // add an "invalid" class to the field:
+            d.className += " invalid";
+            // and set the current valid status to false
+            valid = false;
+        }
+        if (e.value == "") {
+            // add an "invalid" class to the field:
+            e.className += " invalid";
+            // and set the current valid status to false
+            valid = false;
+        }
+        //if (f.value == "") {
+        //    // add an "invalid" class to the field:
+        //    f.className += " invalid";
+        //    // and set the current valid status to false
+        //    valid = false;
+        //}
+        //}
+        // If the valid status is true, mark the step as finished and valid:
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        }
+        return valid; // return the valid status
+    }
+
+    function fixStepIndicator(n) {
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }
+        //... and adds the "active" class on the current step:
+        x[n].className += " active";
+    }
+</script>
+
+<script>
+    function showMeHoushName(e) {
+        var strdisplay = e.options[e.selectedIndex].value;
+        var e = document.getElementById("idShowMeApplication");
+        if (strdisplay == "False") {
+            e.style.display = "none";
+        } else {
+            e.style.display = "block";
+        }
+    }
+</script>
+
+<script>
+    function showMe_h_n(e) {
+        var strdisplay = e.options[e.selectedIndex].value;
+        var e = document.getElementById("idShowMeh");
+        if (strdisplay == "False") {
+            e.style.display = "none";
+        } else {
+            e.style.display = "block";
+        }
+    }
+</script>
+
+<script>
+
+
+    // read property value from controler passed to the view .
+    //-----------------------
+    var FullNameArray = '@Html.Raw(Json.Encode(Model.fullNameArray))';//
+    var jsonobj = JSON.parse(FullNameArray);
+    var result = [];
+    for (i in jsonobj)
+        result.push(i, jsonobj[i]);
+    //------------------------------
+
+
+
+    function autocomplete(inp, arr) {
+        /*the autocomplete function takes two arguments,
+        the text field element and an array of possible autocompleted values:*/
+        var currentFocus;
+        /*execute a function when someone writes in the text field:*/
+        inp.addEventListener("input", function (e) {
+            var a, b, i, val = this.value;
+            /*close any already open lists of autocompleted values*/
+            closeAllLists();
+            if (!val) { return false; }
+            currentFocus = -1;
+            /*create a DIV element that will contain the items (values):*/
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            /*append the DIV element as a child of the autocomplete container:*/
+            this.parentNode.appendChild(a);
+            /*for each item in the array...*/
+            for (i = 0; i < arr.length; i++) {
+                /*check if the item starts with the same letters as the text field value:*/
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    /*create a DIV element for each matching element:*/
+                    b = document.createElement("DIV");
+                    /*make the matching letters bold:*/
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    /*insert a input field that will hold the current array item's value:*/
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function (e) {
+                        /*insert the value for the autocomplete text field:*/
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        /*close the list of autocompleted values,
+                        (or any other open lists of autocompleted values:*/
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function (e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                /*If the arrow DOWN key is pressed,
+                increase the currentFocus variable:*/
+                currentFocus++;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 38) { //up
+                /*If the arrow UP key is pressed,
+                decrease the currentFocus variable:*/
+                currentFocus--;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    /*and simulate a click on the "active" item:*/
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+        function addActive(x) {
+            /*a function to classify an item as "active":*/
+            if (!x) return false;
+            /*start by removing the "active" class on all items:*/
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            /*add class "autocomplete-active":*/
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+            /*a function to remove the "active" class from all autocomplete items:*/
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+        function closeAllLists(elmnt) {
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        /*execute a function when someone clicks in the document:*/
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+
+    autocomplete(document.getElementById("fullname"), result);
+
+
+</script>
+
+<script>
+
+    // document.getElementById("buildingnumber").onchange = function () { PopulateFunction() };
+    // document.getElementById("fullname").onchange = function () { PopulateFunction() };
+
+    function PopulateBuildingUnit() {
+        var BuildingUnitId = document.getElementById("dropDownBuildingUnitApp").value;
+        // alert(1);
+        $.ajax({
+            type: 'GET',
+            dataType: 'Json',
+            url: abp.appPath + 'Applications/PopulateBuildingUnit?BuildingUnitId=' + BuildingUnitId,
+            success: function (data) {
+
+
+                // alert(data.buildingOutput.isInHoush);
+                $('#residentstatus').val(data.BuildingUnit.ResidenceStatus);
+
+
+
+            },
+            error: function (xhr, ajaxOption, thorwnError) {
+                alert(xhr.status);
+                alert(thrownError);
+            },
+            processData: false,
+            async: true
+        });
+    }
+
+
+    function PopulateFunction() {
+        //alert("clicked");
+        var BuildingId = document.getElementById("buildingnumber").value;
+        // var  select = document.getElementById('dropDownBuildingUnitApp');
+        // populate drop down list using json ==== not used 19/09/2018
+        //$.ajax({
+        //    url: abp.appPath + 'Applications/PopulateDropDownListBuildingUnits?buildingId=' + BuildingId,
+        //    type: 'GET',
+        //    datatype: 'JSON',
+
+        //    //data: { buildingId: BuildingId },
+        //    success: function (result) {
+        //        // alert(1);
+
+        //        //$('#dropDownBuildingUnitApp').html('');
+        //        $('#dropDownBuildingUnitApp').append($('<option></option>').val('').text('Please select Unit'));
+
+        //        $.each(result, function (i, item) {
+        //            alert(item.Text);
+        //            //  var opt = document.createElement('option');
+        //            //  opt.value = item.Value;
+        //            //  opt.innerHTML = item.Text;
+        //            //  select.appendChild(opt);
+        //            $('#dropDownBuildingUnitApp').append($('<option></option>').val(item.Value).text(item.Text));
+        //        });
+
+
+        //    },
+        //    error: function (xhr, ajaxOption, thorwnError) {
+        //        alert(xhr.status);
+        //        alert(thrownError);
+        //    }
+        //});
+        //==========================================================================
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'Json',
+            url: abp.appPath + 'Applications/PopulateApplicationForm?buildingId=' + BuildingId,
+            success: function (data) {
+
+
+                // alert(data.buildingOutput.isInHoush);
+                $('#buildingaddress').val(data.buildingOutput.streetName);
+                $('#IsInHoush').val(data.buildingOutput.isInHoush);
+                $('#houshName').val(data.buildingOutput.houshName);
+                $('#buildingId').val(data.buildingOutput.Id);
+                $('#buildingId1').val(data.buildingOutput.Id);
+                $('#BuildingId2').val(data.buildingOutput.Id);
+
+
+            },
+            error: function (xhr, ajaxOption, thorwnError) {
+                alert(xhr.status);
+                alert(thrownError);
+            },
+            processData: false,
+            async: true
+        });
+
+        $.ajax({
+            url: abp.appPath + 'Applications/DropDownList?buildingId=' + BuildingId,
+            type: 'POST',
+            contentType: 'application/html',
+            success: function (content) {
+                // location.reload(false); //reload page to see new user!  
+                $('#UBUDDL2').html(content);
+                //  alert("called3" + searchTXT);
+                //$('#TableContent').load(content);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // alert("called4" + searchTXT);
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+
+
+
+
+
+    }
+
+</script>
+
+<script>
+    function findselectedInHoush() {
+       
+       // var SelectValue = $("input[name='isThereFundingOrPreviousRestoration']:checked").val();
+        var SelectValue = document.getElementById("IsInHoush").value;
+        //alert(SelectValue);
+        var isTrueSet = (SelectValue == 'true');// to change value from string to boolean 
+
+        if ((isTrueSet) == true) {
+           // alert(1);
+           // alert(SelectValue);
+            document.getElementById("houshName").disabled = false;
+        }
+        else {
+           // alert(2);
+           // alert(SelectValue);
+            document.getElementById("houshName").disabled = true;
+        }
+
+
+    }
+
+    function findselected() {
+        var radioValue = $("input[name='isThereFundingOrPreviousRestoration']:checked").val();
+        if (radioValue == 1) {
+            document.getElementById("previousRestorationSource").disabled = false;
+        }
+        else {
+
+            document.getElementById("previousRestorationSource").disabled = true;
+        }
+
+
+    }
+
+    function findselectedEntity() {
+        var radioValue = $("input[name='isThereInterestedRepairingEntity']:checked").val();
+        if (radioValue == 1) {
+            document.getElementById("interestedRepairingEntityName").disabled = false;
+        }
+        else {
+
+            document.getElementById("interestedRepairingEntityName").disabled = true;
+        }
+
+
+    }
+
+    function findSelectedProperty() {
+        var radioValue = $("input[name='PropertyOwnerShip']:checked").val();
+        if (radioValue == 4) {
+            document.getElementById("otherOwnershipType").disabled = false;
+        }
+        else {
+
+            document.getElementById("otherOwnershipType").disabled = true;
+        }
+
+
+    }
+
+    function findSelectedIntervention() {
+        var radioValue = $("input[name='interventionTypeName']:checked").val();
+        // alert(radioValue);
+        if (radioValue == 8) {
+            //  alert("one");
+            document.getElementById("rtdiv").style.display = 'block';
+            document.getElementById("ortdiv").style.display = 'block';
+
+        }
+        else {
+
+            document.getElementById("rtdiv").style.display = 'none';
+            document.getElementById("ortdiv").style.display = 'none';
+        }
+
+
+    }
+
+
+    function findSelectedRestoration() {
+
+        if (document.getElementById("example-getting-started").selectedIndex == -1) {
+            // alert(document.getElementById("example-getting-started").selectedIndex);
+            document.getElementById("otherRestorationType").disabled = true;
+        }
+        //var values = $('#example-getting-started').val();
+        //alert(values);
+        //var array = values.split(',');
+        //for (i = 0; i < array.length; i++) {
+        //    alert(array[i]);
+        //}
+        var e = document.getElementById("example-getting-started");
+        var strUser = e.options[e.selectedIndex].value;
+        //alert(strUser);
+        if (strUser == 5) {
+            document.getElementById("otherRestorationType").disabled = false;
+        }
+        else {
+
+            document.getElementById("otherRestorationType").disabled = true;
+        }
+
+
+    }
+
+</script>
+
+<script src="~/Views/Applications/_EditApplicationsModal.js"></script>

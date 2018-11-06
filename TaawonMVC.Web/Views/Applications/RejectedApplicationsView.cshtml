@@ -1,0 +1,89 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model  TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+
+@{
+    ViewBag.Title = "RejectedApplicationsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Applications/Index.js")
+}
+<style>
+    #RejectedApplicationInput {
+        background-image: url('../../images/searchicon1.png');
+        background-position: 7px,7px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 1px;
+    }
+
+</style>
+<div class="row clearfix">
+    @Html.AntiForgeryToken()
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("RejectedApplications")
+                </h2>
+                <br/>
+                <input type="text" id="RejectedApplicationInput" placeholder="Search for Applications.." />
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>Refresh</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive" id="RejectedApplicationTableContent">
+                <table id="myTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>@L("ApplicationId")</th>
+                            <th>@L("fullName")</th>
+                            <th>@L("phoneNumber1")</th>
+                            <th>@L("previousRestorationSource")</th>
+                            <th>@L("interestedRepairingEntityName")</th>
+                            <th>@L("housingSince")</th>
+                            <th>@L("Actions")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Application in Model.Applications)
+                        {
+                            <tr>
+                                <td>@Application.Id</td>
+                                <td>@Application.fullName</td>
+                                <td>@Application.phoneNumber1</td>
+                                <td>@Application.previousRestorationSource</td>
+                                <td>@Application.interestedRepairingEntityName</td>
+                                <td>@Application.housingSince</td>
+                                <td class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">menu</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="@Url.Action("DisplayRejectedApplicationView", "Applications", new { @applicationId = Application.Id})" class="waves-effect waves-block"><i class="material-icons">pageview</i>View</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @*<button id="btnSelected" type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#applicationConvertModal">
+                        <i class="material-icons">forward</i>
+                    </button>*@
+            </div>
+        </div>
+    </div>
+</div>

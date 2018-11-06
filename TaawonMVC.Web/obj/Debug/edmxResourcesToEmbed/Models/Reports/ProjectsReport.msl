@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TaawonMVCModelStoreContainer" CdmEntityContainer="TaawonMVCEntities">
+    <EntitySetMapping Name="Applications">
+      <EntityTypeMapping TypeName="TaawonMVCModel.Application">
+        <MappingFragment StoreEntitySet="Applications">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="fullName" ColumnName="fullName" />
+          <ScalarProperty Name="phoneNumber1" ColumnName="phoneNumber1" />
+          <ScalarProperty Name="phoneNumber2" ColumnName="phoneNumber2" />
+          <ScalarProperty Name="isThereFundingOrPreviousRestoration" ColumnName="isThereFundingOrPreviousRestoration" />
+          <ScalarProperty Name="previousRestorationSource" ColumnName="previousRestorationSource" />
+          <ScalarProperty Name="isThereInterestedRepairingEntity" ColumnName="isThereInterestedRepairingEntity" />
+          <ScalarProperty Name="interestedRepairingEntityName" ColumnName="interestedRepairingEntityName" />
+          <ScalarProperty Name="interventionTypeId" ColumnName="interventionTypeId" />
+          <ScalarProperty Name="restorationTypeIds" ColumnName="restorationTypeIds" />
+          <ScalarProperty Name="otherOwnershipType" ColumnName="otherOwnershipType" />
+          <ScalarProperty Name="otherRestorationType" ColumnName="otherRestorationType" />
+          <ScalarProperty Name="propertyStatusDescription" ColumnName="propertyStatusDescription" />
+          <ScalarProperty Name="requiredRestoration" ColumnName="requiredRestoration" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="DeleterUserId" ColumnName="DeleterUserId" />
+          <ScalarProperty Name="DeletionTime" ColumnName="DeletionTime" />
+          <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+          <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+          <ScalarProperty Name="buildingId" ColumnName="buildingId" />
+          <ScalarProperty Name="PropertyOwnerShipId" ColumnName="PropertyOwnerShipId" />
+          <ScalarProperty Name="buildingUnitId" ColumnName="buildingUnitId" />
+          <ScalarProperty Name="ApplicationStatus" ColumnName="ApplicationStatus" />
+          <ScalarProperty Name="RejectDate" ColumnName="RejectDate" />
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="IsApplicationConvertedToProject" ColumnName="IsApplicationConvertedToProject" />
+          <ScalarProperty Name="projectId" ColumnName="projectId" />
+          <ScalarProperty Name="housingSince" ColumnName="housingSince" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="TaawonMVCModel.Project">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="projectArabicName" ColumnName="projectArabicName" />
+          <ScalarProperty Name="projectEnglishName" ColumnName="projectEnglishName" />
+          <ScalarProperty Name="budget" ColumnName="budget" />
+          <ScalarProperty Name="contractor" ColumnName="contractor" />
+          <ScalarProperty Name="locationFromMap" ColumnName="locationFromMap" />
+          <ScalarProperty Name="projectPeriod" ColumnName="projectPeriod" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="numberOfFamilies" ColumnName="numberOfFamilies" />
+          <ScalarProperty Name="numberOfIndividuals" ColumnName="numberOfIndividuals" />
+          <ScalarProperty Name="location" ColumnName="location" />
+          <ScalarProperty Name="numberOfRooms" ColumnName="numberOfRooms" />
+          <ScalarProperty Name="isBuildingHasRoof" ColumnName="isBuildingHasRoof" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="DeleterUserId" ColumnName="DeleterUserId" />
+          <ScalarProperty Name="DeletionTime" ColumnName="DeletionTime" />
+          <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+          <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+          <ScalarProperty Name="numberOfFloors" ColumnName="numberOfFloors" />
+          <ScalarProperty Name="IsBuildingInHoush" ColumnName="IsBuildingInHoush" />
+          <ScalarProperty Name="donorId" ColumnName="donorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,117 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model  TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+@{
+    ViewBag.Title = "ProjectsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Applications/Index.js")
+    @Html.IncludeScript("~/Views/Applications/ApplicationSearch.js")
+}
+<style>
+    #ProjectInput {
+        background-image: url('../../images/searchicon1.png');
+        background-position: 7px,7px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 1px;
+    }
+</style>
+<div class="row clearfix">
+    @Html.AntiForgeryToken()
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("Projects")
+                </h2>
+                <br/>
+                <input type="text" id="ProjectInput" placeholder="Search for Projects.."/>
+
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>Refresh</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive" id="ProjectTableContent">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>@L("ProjectId")</th>
+                        <th>@L("ProjectArabicName")</th>
+                        <th>@L("ProjectEnglishName")</th>
+                        <th>@L("Donor")</th>
+                        <th>@L("Budget")</th>
+                        <th>@L("Contractor")</th>
+                        <th>@L("Year")</th>
+                        <th>@L("Actions")</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var Project in Model.Projects)
+                    {
+                        <tr>
+                            <td>@Project.Id</td>
+                            <td>@Project.projectArabicName</td>
+                            <td>@Project.projectEnglishName</td>
+                            <td>@Project.donorId</td>
+                            <td>@Project.budget</td>
+                            <td>@Project.contractor</td>
+                            <td>@Project.year</td>
+                            <td class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">menu</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="#" class="waves-effect waves-block upload-project-file" data-Project-id="@Project.Id" data-toggle="modal" data-target="#ProjectFileUploadModal"><i class="material-icons">file_upload</i>@L("UploadFile")</a></li>
+                                    <li><a href="#" class="waves-effect waves-block edit-project" data-Project-id="@Project.Id" data-toggle="modal" data-target="#ProjectEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                    <li><a href="#" class="waves-effect waves-block delete-project" data-Project-id="@Project.Id" data-Project-name="@Project.projectEnglishName"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                @*<button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#UserCreateModal">
+                        <i class="material-icons">add</i>
+                    </button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ProjectEditModal" tabindex="-1" role="dialog" aria-labelledby="UserEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+
+
+
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ProjectFileUploadModal" tabindex="-1" role="dialog" aria-labelledby="UserEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+
+
+
+
+        </div>
+    </div>
+</div>
+

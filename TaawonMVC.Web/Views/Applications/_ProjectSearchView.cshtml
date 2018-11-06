@@ -1,0 +1,48 @@
+﻿@using TaawonMVC.Web.Models.Common.Modals
+@model TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+
+@{
+    Layout = null;
+    SetAntiForgeryCookie();
+}
+<script src="~/Views/Applications/Index.js"></script>
+
+@Html.AntiForgeryToken()
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@L("ProjectId")</th>
+            <th>@L("ProjectArabicName")</th>
+            <th>@L("ProjectEnglishName")</th>
+            <th>@L("Donor")</th>
+            <th>@L("Budget")</th>
+            <th>@L("Contractor")</th>
+            <th>@L("Year")</th>
+            <th>@L("Actions")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Project in Model.Projects)
+        {
+            <tr>
+                <td>@Project.Id</td>
+                <td>@Project.projectArabicName</td>
+                <td>@Project.projectEnglishName</td>
+                <td>@Project.donor</td>
+                <td>@Project.budget</td>
+                <td>@Project.contractor</td>
+                <td>@Project.year</td>
+                <td class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="#" class="waves-effect waves-block edit-project" data-Project-id="@Project.Id" data-toggle="modal" data-target="#ProjectEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                        <li><a href="#" class="waves-effect waves-block delete-project" data-Project-id="@Project.Id" data-Project-name="@Project.projectEnglishName"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

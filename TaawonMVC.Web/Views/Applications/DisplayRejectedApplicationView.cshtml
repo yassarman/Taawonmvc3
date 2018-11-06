@@ -1,0 +1,195 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model  TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+@{
+    ViewBag.Title = "DisplayRejectedApplicationView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    div .dbgcolor {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    button {
+        background-color: #526d89;
+        color: #ffffff;
+        border: none;
+        padding: 7px 20px;
+        font-size: 17px;
+        cursor: pointer;
+    }
+</style>
+<h3>View Application</h3>
+<br />
+<div class="dbgcolor">
+    <br />
+    <form>
+        <div class="row clearfix" style="margin-top:10px;">
+            <div class="col-sm-2">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="fullName">Full Name</label>
+                        <input class="form-control" type="text" readonly name="fullName" id="fullName" value="@Model.applicationsOutput.fullName">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="phoneNumber1">Mobile Number</label>
+                        <input class="form-control" type="text" readonly name="phoneNumber1" id="phoneNumber1" value="@Model.applicationsOutput.phoneNumber1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="phoneNumber2">Phone Number</label>
+                        <input class="form-control" type="text" readonly name="phoneNumber2" id="phoneNumber2" value="@Model.applicationsOutput.phoneNumber2">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        @{
+                            var value = Model.applicationsOutput.isThereFundingOrPreviousRestoration;
+                            var boleanValue = "No";
+                            if (value == 1)
+                            {
+                                boleanValue = "Yes";
+                            }
+                            else
+                            {
+                                boleanValue = "No";
+                            }
+
+                        }
+                        <label for="isThereFundingOrPreviousRestoration">is There Funding Or Previous Restoration</label>
+                        <input class="form-control" type="text" readonly name="isThereFundingOrPreviousRestoration" id="isThereFundingOrPreviousRestoration" value="@boleanValue">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-3">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="previousRestorationSource">Previous Restoration Source</label>
+                        <input class="form-control" type="text" readonly name="previousRestorationSource" id="previousRestorationSource" value="@Model.applicationsOutput.previousRestorationSource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        @{
+                            var EntityValue = Model.applicationsOutput.isThereInterestedRepairingEntity;
+                            var EntityBooleanValue = "No";
+                            if (EntityValue == 1)
+                            {
+                                EntityBooleanValue = "Yes";
+                            }
+                            else
+                            {
+                                EntityBooleanValue = "No";
+                            }
+                        }
+                        <label for="isThereInterestedRepairingEntity">Is There Interested Repairing Entity</label>
+                        <input class="form-control" type="text" readonly name="isThereInterestedRepairingEntity" id="isThereInterestedRepairingEntity" value="@EntityBooleanValue">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="interestedRepairingEntityName">Interested Repairing Entity Name</label>
+                        <input class="form-control" type="text" readonly name="interestedRepairingEntityName" id="interestedRepairingEntityName" value="@Model.applicationsOutput.interestedRepairingEntityName">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="interventionTypeId">Intervention Type</label>
+                        <input class="form-control" type="text" readonly name="interventionTypeId" id="interventionTypeId" value="@Model.applicationsOutput.interventionType.InterventionName">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row clearfix">
+            @{
+                var restorationTypeIds = Model.applicationsOutput.restorationTypeIds;
+                int[] restorationTypeIdsIntArray = restorationTypeIds.Select(x => (int)x).ToArray();
+                List<int> restorationTypeIdsList = new List<int>(restorationTypeIdsIntArray);
+                var restorationTypes = Model.RestorationTypes;
+            }
+            @foreach (var restorationType in restorationTypes)
+            {
+                if (restorationTypeIdsList.Contains(restorationType.Id))
+                {
+                    <div class="col-sm-2">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label for="restorationTypeIds">Restoration Types</label>
+                                <input class="form-control" type="text" name="restorationTypeIds" id="restorationTypeIds" readonly value="@restorationType.RestorationTypeName">
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-6">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="otherOwnershipType">Other Ownership Type</label>
+                        <input class="form-control" type="text" readonly name="otherOwnershipType" id="otherOwnershipType" value="@Model.applicationsOutput.otherOwnershipType">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="otherRestorationType">Other Restoration Type</label>
+                        <input class="form-control" type="text" readonly name="otherRestorationType" id="otherRestorationType" value="@Model.applicationsOutput.otherRestorationType">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="propertyStatusDescription">Property Status Description</label>
+                        <textarea class="form-control" rows="5" readonly="" name="propertyStatusDescription" id="propertyStatusDescription">@Model.applicationsOutput.propertyStatusDescription</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <label for="requiredRestoration">Required Restoration</label>
+                        <textarea class="form-control" rows="5" readonly="" name="requiredRestoration" id="requiredRestoration">@Model.applicationsOutput.requiredRestoration</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row clearfix">
+            <div class="p-r-10 p-b-10" style="float:right;">
+                <button type="button" onclick="location.href='@Url.Action("RejectedApplicationsView", "Applications")'">@L("Cancel")</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+

@@ -1,0 +1,45 @@
+﻿@using TaawonMVC.Web.Models.Common.Modals
+@model TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+
+@{
+    Layout = null;
+    SetAntiForgeryCookie();
+}
+@*<script src="~/Views/Applications/Index.js"></script>*@
+
+@Html.AntiForgeryToken()
+
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>@L("ApplicationId")</th>
+            <th>@L("fullName")</th>
+            <th>@L("phoneNumber1")</th>
+            <th>@L("previousRestorationSource")</th>
+            <th>@L("interestedRepairingEntityName")</th>
+            <th>@L("housingSince")</th>
+            <th>@L("Actions")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Application in Model.Applications)
+        {
+            <tr>
+                <td>@Application.Id</td>
+                <td>@Application.fullName</td>
+                <td>@Application.phoneNumber1</td>
+                <td>@Application.previousRestorationSource</td>
+                <td>@Application.interestedRepairingEntityName</td>
+                <td>@Application.housingSince</td>
+                <td class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="@Url.Action("DisplayRejectedApplicationView", "Applications", new { @applicationId = Application.Id})" class="waves-effect waves-block"><i class="material-icons">pageview</i>View</a></li>
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

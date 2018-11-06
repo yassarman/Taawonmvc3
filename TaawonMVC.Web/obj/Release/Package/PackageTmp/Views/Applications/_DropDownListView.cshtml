@@ -1,0 +1,16 @@
+﻿@using TaawonMVC.Web.Models.Common.Modals
+@model TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+@{
+    Layout = null;
+}
+
+<select name="dropDownBuildingUnitApp" id="dropDownBuildingUnitApp" class="form-control" onchange="PopulateBuildingUnit()">
+    <option value="">Select Unit</option>
+    @foreach (var buildingUnit in Model.BuildingUnits)
+    {
+        <option value="@buildingUnit.Id">@buildingUnit.ResidentName</option>
+    }
+</select>
+
+
+

@@ -1,0 +1,62 @@
+﻿@model TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+@{
+    Layout = null;
+    SetAntiForgeryCookie();
+}
+
+@Html.AntiForgeryToken()
+
+    <table class="table" id="showUploadedFiles">
+        <thead>
+            <tr>
+                <th>@L("Image")</th>
+                <th>@L("FileName")</th>
+                <th>@L("FileType")</th>
+                <th>@L("ApplicationNumber")</th>
+                <th>@L("Actions")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var UploadedFile in Model.uploadApplicationFilesOutputs)
+            {
+                <tr>
+                    <td>
+                        @{
+                            var data = UploadedFile.Type;
+                            var base64 = Convert.ToBase64String(UploadedFile.FileData);
+                            var imgSrc = String.Format("data:"+data+";base64,{0}", base64);
+                        }
+
+                        <img src="@imgSrc" width="60" height="40" />
+                    </td>
+                    <td>@UploadedFile.FileName</td>
+                    <td>@UploadedFile.Type</td>
+                    <td>@UploadedFile.applicationId</td>
+                    <td class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">menu</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            @*<li><a href="#" class="waves-effect waves-block Download-File"  data-Uploadfile-id="@UploadedFile.Id" data-toggle="modal" data-target="#DownloadFileModal"><i class="material-icons">edit</i>@L("Download")</a></li>*@
+                            
+                            <li><a href="@Url.Action("DownLoadFile", "Applications", new { @id = UploadedFile.Id })" class="waves-effect waves-block"><i class="material-icons">file_download</i>@L("Download")</a></li>
+                            <li><a href="#" class="waves-effect waves-block delete-File" data-Uploadfile-id="@UploadedFile.Id" data-Uploadfile-name="@UploadedFile.FileName"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+ <div class="modal fade" id="DownloadFileModal" tabindex="-1" role="dialog" aria-labelledby="UserEditModalLabel" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+
+
+
+
+            </div>
+        </div>
+ </div>
+ 
+ <script src="~/Views/Applications/Index.js"></script>

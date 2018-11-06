@@ -1,0 +1,527 @@
+﻿@using Abp.Web.Mvc.Extensions
+@using TaawonMVC.Web.Models.Common.Modals
+@Styles.Render("~/Content/kendo/css")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/kendo")
+
+
+
+
+
+@model TaawonMVC.Web.Models.Building.BuildingViewModel
+@{
+    Layout = null;
+}
+@{
+    SetAntiForgeryCookie();
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditBuilding")))
+
+<div class="modal-body" id="EditDiv">
+    <ul class="nav nav-tabs tab-nav-right" role="tablist">
+        <li role="presentation" class="active"><a href="#edit-user-details" data-toggle="tab">Building And Unit Details</a></li>
+        <li role="presentation"><a href="#upload-files" data-toggle="tab" id="UploadFilesShow">Upload Files</a></li>
+        <li role="presentation"><a href="#building-Units" data-toggle="tab" id="BuildingUnitsShow">Building Units</a></li>
+    </ul>
+    <div class="tab-content">
+
+        <div role="tabpanel" class="tab-pane animated fadeIn active" id="edit-user-details">
+            <form name="UserEditForm" role="form" novalidate class="form-validation">
+                <input type="hidden" name="Id" id="Id" value="@Model.Building.Id" />
+                @*<input type="hidden" name="BuildingUsesID" id="BuildingUsesID" value="@Model.Building.buildingUsesID" />*@
+                <div class="row clearfix" style="margin-top: 10px;">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="BuildingName" type="text" name="BuildingName" value="@Model.Building.buildingName" required maxlength="255" class="validate form-control">
+                                <label for="BuildingName" class="form-label">@L("BuildingName")</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="NumOfBuildingUnits" type="text" name="NumOfBuildingUnits" value="@Model.Building.numOfBuildingUnits" required maxlength="255" class="validate form-control">
+                                <label for="NumOfBuildingUnits" class="form-label">@L("numOfBuildingUnits")</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="NumOfFloors" type="text" name="NumOfFloors" value="@Model.Building.numOfFloors" required maxlength="255" class="validate form-control">
+                                <label for="NumOfFloors" class="form-label">@L("numOfFloors")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="StreetName" type="text" name="StreetName" value="@Model.Building.streetName" required maxlength="255" class="validate form-control">
+                                <label for="StreetName" class="form-label">@L("streetName")</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="BuildingNo" type="text" name="BuildingNo" value="@Model.Building.buildingNo" required maxlength="255" class="validate form-control">
+                                <label for="BuildingNo" class="form-label">@L("buildingNo")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                @Html.DropDownListFor(m => Model.Building.isInHoush, Model.YesOrNo, htmlAttributes: new { @class = "form-control", @name = "IsInHoush", @id = "IsInHoush", @required = "true", onchange = "showMe(this);" })
+                                <label class="form-label">@L("IsInHoush")</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line" id="idShowMeUpdate" hidden>
+                                <input type="text" name="HoushName" id="HoushName" value="@Model.Building.houshName" class="form-control" required maxlength="255" autocomplete="off">
+                                <label class="form-label">@L("houshName")</label>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                @Html.DropDownListFor(m => Model.Building.neighborhoodID, new SelectList(Model.Neighborhoods, "Id", "EName"), "Select Neighborhood", htmlAttributes: new { @class = "form-control", @name = "NeighborhoodID", @id = "NeighborhoodID", @required = "true" })
+                                @Html.ValidationMessageFor(m => m.Building.neighborhoodID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                @Html.DropDownListFor(m => Model.Building.buildingTypeID, new SelectList(Model.BuildingTypes, "Id", "EName"), "Select Building Type", htmlAttributes: new { @class = "form-control", @name = "BuildingTypeID", @id = "BuildingTypeID", @required = "true" })
+                                @Html.ValidationMessageFor(m => m.Building.buildingTypeID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="GISMAP1" type="text" name="GISMAP1" value="@Model.Building.GISMAP" required maxlength="255" class="validate form-control">
+                                <label for="GISMAP1" class="form-label">@L("GISMAP")</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="HoushProperty" type="text" name="HoushProperty" value="@Model.Building.houshProperty" required maxlength="255" class="validate form-control">
+                                <label for="HoushProperty" class="form-label">@L("houshProperty")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                @Html.DropDownListFor(m => Model.Building.buildingUsesID, new SelectList(Model.BuildingUses, "Id", "UsedFor"), "Select building uses", htmlAttributes: new { @class = "form-control", @name = "BuildingUsesID", @id = "BuildingUsesID", @required = "true" })
+                                @Html.ValidationMessageFor(m => m.Building.buildingUsesID, "", new { @class = "text-danger" })
+                                <label class="form-label">@L("buildingUsesID")</label>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Xx" type="text" name="Xx" value="@Model.Building.X" required maxlength="255" class="validate form-control">
+                                <label for="Xx" class="form-label">@L("X")</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="Yy" type="text" name="Yy" value="@Model.Building.Y" required maxlength="255" class="validate form-control">
+                                <label for="Yy" class="form-label">@L("Y")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div role="tabpanel" class="tab-pane animated  fadeIn" id="upload-files" @*onload="ShowUploadedFilesFunction()"*@>
+
+            @*@using (Html.BeginForm("UploadFiles", "Building", new { BuildingId = @Model.Building.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()*@
+
+            @*@using (Ajax.BeginForm("UploadFiles", "Building", new { BuildingId = @Model.Building.Id }, new AjaxOptions()
+                {
+                 HttpMethod = "POST",
+                 // InsertionMode = InsertionMode.Replace,
+                 UpdateTargetId = "EditDiv"
+                 },
+                       new { enctype = "multipart/form-data", id = "UploadFiles" }))
+
+                {*@
+
+            <form name="UploadFiles" id="UploadFiles" enctype="multipart/form-data" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <br />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.files, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple", @id = "datafile" })
+                            @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @*<input type="submit" value="Upload" id="submitUploadFile" class="btn btn-primary submitUploadFile" />*@
+                            <button type="button" name="submitUploadFile" id="submitUploadFile" onclick="UploadShowFiles()" class="btn btn-primary ">Upload</button>
+
+                        </div>
+
+                        <input name="buildingId" id="buildingId" type="hidden" value="@Model.Building.Id" />
+
+
+
+
+                    </div>
+
+
+                </div>
+                <br />
+
+
+                @*}*@
+
+            </form>
+
+            <div id="progress" style="display: none">
+                <div id="bar">File Uploaded Successfuly</div>
+            </div>
+            <br />
+            <div id="ShowFiles">
+
+            </div>
+            <div id="status"></div>
+
+
+
+
+
+
+
+
+
+            @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane animated fadeIn" id="building-Units">
+            @using (Ajax.BeginForm("CreateBuildingUnits", "Building", new { BuildingId = @Model.Building.Id },
+
+            new AjaxOptions
+            {
+                OnSuccess = "OnSuccess",
+                OnFailure = "OnFailure",
+
+            },
+                 htmlAttributes: new { @class = "form-group" }))
+
+            {
+
+                @Html.AntiForgeryToken()
+
+                <div class="row clearfix" style="margin-top:10px;">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" name="ResidentName" id="ResidentName" class="form-control" required maxlength="255" placeholder="@L("ResidentName")">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" name="ResidenceStatus" id="ResidenceStatus" class="form-control" required maxlength="255" placeholder="@L("ResidenceStatus")">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" name="NumberOfFamilyMembers" id="NumberOfFamilyMembers" class="form-control" required maxlength="255" placeholder="@L("NumberOfFamilyMembers")">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" name="Floor" id="Floor" class="form-control" required maxlength="255" placeholder="@L("Floor")">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                @*Commented until get kendo license 13082018*@
+                                @(Html.Kendo().MultiSelect().Name("UnitContentsMultiSelect") //The name of the MultiSelect is mandatory. It specifies the "id" attribute of the widget.
+                                                                                                  .DataTextField("UnitPartName") //Specify which property of the unit to be used by the MultiSelect as a text.
+                                                                                                  .DataValueField("Id") //Specify which property of the Unit to be used by the MultiSelect as a value.
+                                                                                                  .BindTo(Model.BuildingUnitContents) //Pass the list of unit contents to the MultiSelect.
+                                                                                                  .Placeholder("Select Unit Contents")
+                                )
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input name="buildingId" id="buildingId" type="hidden" value="@Model.Building.Id" />
+
+                                <input type="submit" value="Create New Unit" id="CreateNewUnit" class="btn btn-primary" onclick="ShowCreatedUnitsFunction()" />
+                                @*<button type="button" name="CreateNewUnit" id="CreateNewUnit"  class="btn btn-primary ">Create New Unit</button>*@
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+
+            <div id="progressUnits" style="display: none">
+                <div id="bar">Unit Created Successfuly</div>
+            </div>
+            <div id="ShowCreatedUnits">
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+
+
+
+
+<script src="~/Views/Building/_EditUserModal.js"></script>
+@*============Building unit script============*@
+
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+@*jquery version 2.2.2 has been added because there is conflict with version 3.3.1 *@
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>*@
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script type="text/javascript">
+    function OnSuccess(response) {
+        $("#progressUnits").show();
+        setTimeout(function () {
+            $("#progressUnits").hide();
+        }, 2000);
+    }
+    function OnFailure(response) {
+        alert("Error occured.");
+    }
+</script>
+
+
+@*============================================*@
+
+<script>
+    function showMe(e) {
+        var strdisplay = e.options[e.selectedIndex].value;
+        var e = document.getElementById("idShowMeUpdate");
+        if (strdisplay == "False") {
+            e.style.display = "none";
+        } else {
+            e.style.display = "block";
+        }
+    }
+</script>
+@*<script>
+        (function () {
+
+            var bar = $('.progress-bar');
+            var percent = $('.progress-bar');
+            var status = $('#status');
+
+            $('form').ajaxForm({
+                beforeSend: function () {
+                    status.empty();
+                    var percentVal = '0%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                uploadProgress: function (event, position, total, percentComplete) {
+                    var percentVal = percentComplete + '%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                success: function () {
+                    var percentVal = '100%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                complete: function (xhr) {
+                    status.html(xhr.responseText);
+                }
+            });
+
+        })();
+    </script>*@
+
+
+<script>
+
+
+    // read property value from controler passed to the view .
+    //-----------------------
+    var HoushNameArray = '@Html.Raw(Json.Encode(Model.HoushNameArray))';//
+    var jsonobj = JSON.parse(HoushNameArray);
+    var result = [];
+    for (i in jsonobj)
+        result.push(i, jsonobj[i]);
+    //------------------------------
+
+
+
+    function autocomplete(inp, arr) {
+        /*the autocomplete function takes two arguments,
+        the text field element and an array of possible autocompleted values:*/
+        var currentFocus;
+        /*execute a function when someone writes in the text field:*/
+        inp.addEventListener("input", function (e) {
+            var a, b, i, val = this.value;
+            /*close any already open lists of autocompleted values*/
+            closeAllLists();
+            if (!val) { return false; }
+            currentFocus = -1;
+            /*create a DIV element that will contain the items (values):*/
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            /*append the DIV element as a child of the autocomplete container:*/
+            this.parentNode.appendChild(a);
+            /*for each item in the array...*/
+            for (i = 0; i < arr.length; i++) {
+                /*check if the item starts with the same letters as the text field value:*/
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    /*create a DIV element for each matching element:*/
+                    b = document.createElement("DIV");
+                    /*make the matching letters bold:*/
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    /*insert a input field that will hold the current array item's value:*/
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function (e) {
+                        /*insert the value for the autocomplete text field:*/
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        /*close the list of autocompleted values,
+                        (or any other open lists of autocompleted values:*/
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function (e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                /*If the arrow DOWN key is pressed,
+                increase the currentFocus variable:*/
+                currentFocus++;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 38) { //up
+                /*If the arrow UP key is pressed,
+                decrease the currentFocus variable:*/
+                currentFocus--;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    /*and simulate a click on the "active" item:*/
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+        function addActive(x) {
+            /*a function to classify an item as "active":*/
+            if (!x) return false;
+            /*start by removing the "active" class on all items:*/
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            /*add class "autocomplete-active":*/
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+            /*a function to remove the "active" class from all autocomplete items:*/
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+        function closeAllLists(elmnt) {
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        /*execute a function when someone clicks in the document:*/
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+
+    autocomplete(document.getElementById("HoushName"), result);
+
+
+</script>
+<script src="~/Views/Building/Index.js"></script>
+
+

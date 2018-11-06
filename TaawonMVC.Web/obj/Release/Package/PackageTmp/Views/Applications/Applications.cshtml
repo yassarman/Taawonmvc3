@@ -1,0 +1,147 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model  TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+@{
+    ViewBag.Title = "Applications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Applications/Index.js")
+    @Html.IncludeScript("~/Views/Applications/ApplicationSearch.js")
+}
+
+<style>
+
+    #ApplicationInput {
+        background-image: url('../../images/searchicon1.png');
+        background-position: 7px,7px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 1px;
+    }
+</style>
+
+<div class="row clearfix">
+    @Html.AntiForgeryToken()
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("Applications")
+                </h2>
+                <br />
+                <input type="text" id="ApplicationInput" placeholder="Search for Applications.." />
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>Refresh</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive" id="ApplicationTableContent">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@L("fullName")</th>
+                            <th>@L("phoneNumber1")</th>
+                            <th>@L("previousRestorationSource")</th>
+                            <th>@L("interestedRepairingEntityName")</th>
+                            <th>@L("housingSince")</th>
+                            <th>@L("Actions")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Application in Model.Applications)
+                        {
+                            <tr>
+                                <td>@Application.fullName</td>
+                                <td>@Application.phoneNumber1</td>
+                                <td>@Application.previousRestorationSource</td>
+                                <td>@Application.interestedRepairingEntityName</td>
+                                <td>@Application.housingSince</td>
+                                <td class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">menu</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="#" class="waves-effect waves-block upload-application-file" data-application-id="@Application.Id" data-toggle="modal" data-target="#FileUploadModal"><i class="material-icons">file_upload</i>@L("UploadFile")</a></li>
+                                        <li><a href="@Url.Action("EditApplication", "Applications", new {@appId = Application.Id})" class="waves-effect waves-block"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                        <li><a href="#" class="waves-effect waves-block reject-Application" data-application-id="@Application.Id" data-application-name="@Application.fullName"><i class="material-icons">stop</i>@L("Reject")</a></li>
+                                        <li><a href="#" class="waves-effect waves-block approve-Application" data-application-id="@Application.Id" data-application-name="@Application.fullName"><i class="material-icons">play_arrow</i>@L("Approve")</a></li>
+                                        <li><a href="#" class="waves-effect waves-block delete-application" data-application-id="@Application.Id" data-application-name="@Application.fullName"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button onclick="location.href = '@Url.Action("ApplicationForm", "Applications")'" type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#propertyOwnershipCreateModal">
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade" id="propertyOwnershipCreateModal" tabindex="-1" role="dialog" aria-labelledby="UserCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>@L("CreateNewpropertyOwnership")</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="propertyOwnershipCreateForm" role="form" novalidate class="form-validation">
+                    <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                        <li role="presentation" class="active"><a href="#create-user-details" data-toggle="tab">Property Ownership Details</a></li>
+
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane animated fadeIn active" id="create-user-details">
+                            <div class="row clearfix" style="margin-top:10px;">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control" type="text" name="PropertyOwnershipName" id="PropertyOwnershipName" required maxlength="255" minlength="2">
+                                            <label class="form-label">@L("PropertyOwnershipName")</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                        <button type="submit" class="btn btn-primary waves-effect">@L("Save")</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="modal fade" id="FileUploadModal" tabindex="-1" role="dialog" aria-labelledby="UserEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+

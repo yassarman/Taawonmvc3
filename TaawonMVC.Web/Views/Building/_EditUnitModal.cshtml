@@ -1,0 +1,96 @@
+﻿@using System.Web.Optimization
+@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@using TaawonMVC.Web.Models.Common.Modals
+@model TaawonMVC.Web.Models.Building.BuildingViewModel
+@{
+    Layout = null;
+}
+@{
+    SetAntiForgeryCookie();
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("BuildingUnits")))
+
+<div class="modal-body" id="EditDiv">
+
+    <div class="tab-content">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@L("ResidentName")</th>
+                    <th>@L("ResidenceStatus")</th>
+                    <th>@L("NumberOfFamilyMembers")</th>
+                    <th>@L("Floor")</th>
+                    <th>@L("Actions")</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+                @{
+
+                    var BuildingUnits = Model.BuildingUnitsOutputs;
+
+                }
+
+
+                @foreach (var BuildingUnit in BuildingUnits)
+
+                {
+                    <tr>
+                        <td>@BuildingUnit.ResidentName</td>
+                        <td>@BuildingUnit.ResidenceStatus</td>
+                        <td>@BuildingUnit.NumberOfFamilyMembers</td>
+                        <td>@BuildingUnit.Floor</td>
+                        <td class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">menu</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="#" class="waves-effect waves-block edit-BuildingUnit" data-BuildingUnit-id="@BuildingUnit.Id" data-toggle="modal" data-target="#UnitEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                <li><a href="#" class="waves-effect waves-block delete-unit" data-BuildingUnit-id="@BuildingUnit.Id" data-BuildingUnit-name="@BuildingUnit.ResidentName"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+
+
+
+
+    </div>
+</div>
+
+@*@Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")*@
+<div class="modal-footer">
+    <button type="button" class="btn btn-default close-button waves-effect"  data-dismiss="modal">@L("Cancel")</button>
+</div>
+<div class="modal fade" id="UnitEditModal" tabindex="-1" role="dialog" aria-labelledby="UserEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Views/Building/Index.js"></script>
+
+
+
+
+
+
+
+
+
+

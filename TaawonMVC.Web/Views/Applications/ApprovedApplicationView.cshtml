@@ -1,0 +1,148 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model  TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<style>
+    tr.selected td {
+        background-color: ghostwhite;
+    }
+
+    #ApprovedApplicationInput {
+        background-image: url('../../images/searchicon1.png');
+        background-position: 7px,7px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 1px;
+    }
+</style>
+@{
+    ViewBag.Title = "ApprovedApplicationView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Applications/Index.js")
+}
+
+<div class="row clearfix">
+    @Html.AntiForgeryToken()
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("ApprovedApplications")
+                </h2>
+                <br/>
+                <input type="text" id="ApprovedApplicationInput" placeholder="Search for Applications.." />
+
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>Refresh</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body table-responsive" id="ApprovedApplicationTableContent">
+                <table id="myTable" class="table">
+                    <thead>
+                    <tr>
+                        <th>@L("ApplicationId")</th>
+                        <th>@L("fullName")</th>
+                        <th>@L("phoneNumber1")</th>
+                        <th>@L("previousRestorationSource")</th>
+                        <th>@L("interestedRepairingEntityName")</th>
+                        <th>@L("housingSince")</th>
+                        <th>@L("Actions")</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var Application in Model.Applications)
+                    {
+                        <tr>
+                            <td>@Application.Id</td>
+                            <td>@Application.fullName</td>
+                            <td>@Application.phoneNumber1</td>
+                            <td>@Application.previousRestorationSource</td>
+                            <td>@Application.interestedRepairingEntityName</td>
+                            <td>@Application.housingSince</td>
+                            <td class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="material-icons">menu</i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="@Url.Action("DisplayApplicationView", "Applications", new { @applicationId = Application.Id})" class="waves-effect waves-block"><i class="material-icons">pageview</i>View</a></li>
+                                        </ul>
+                                    </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                <button id="btnSelected" type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#applicationConvertModal">
+                    <i class="material-icons">forward</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="applicationConvertModal" tabindex="-1" role="dialog" aria-labelledby="UserCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $("#myTable tr").click(function () {
+       // var x = document.getElementsByTagName("tr")[0].getAttribute("class");
+
+       var y = $(this).hasClass("selected");
+        if (y == true) {
+            $(this).removeClass("selected");
+        }
+        else {
+            $(this).addClass('selected');
+        }
+
+
+       // var value = $(this).find('td:first').html();
+        //alert(value);
+
+
+    });
+
+    $('#btnSelected').on('click', function (e) {
+        var selectedIDs = [];
+        $("#myTable tr.selected").each(function (index, row) {
+            selectedIDs.push($(row).find("td:first").html());
+
+        });
+        var headers = {};
+        headers['selectedIDs'] = selectedIDs;
+         var link = '@Url.Action("ConvertApplication", "Applications")';
+        $.ajax({
+            url: link,
+            type: 'POST',
+            headers: headers,
+            contentType: 'application/html',
+            success: function (content) {
+                $('#applicationConvertModal div.modal-content').html(content);
+                },
+            error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+
+    });
+</script>
+

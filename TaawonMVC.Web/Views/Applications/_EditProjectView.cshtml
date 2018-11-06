@@ -1,0 +1,209 @@
+﻿@using TaawonMVC.Web.Models.Common.Modals
+@model TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+@{
+    Layout = null;
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditProject")))
+
+<div class="modal-body">
+    <form name="EditProjectForm" role="form" validate class="form-validation">
+
+
+        <input type="hidden" name="Id" id="Id" value="@Model.ProjectOutput.Id" />
+        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+            <li role="presentation" class="active"><a href="#create-user-details" data-toggle="tab">Project Details</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane animated fadeIn active" id="create-user-details">
+                <div class="row clearfix" style="margin-top:10px;">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Project Arabic Name</span>
+                                <input class="validate form-control" type="text" name="projectArabicName" id="projectArabicName" value="@Model.ProjectOutput.projectArabicName" required maxlength="255" minlength="2" placeholder="@L("ProjectArabicName")">
+                                @*<label for="projectArabicName" class="form-label">@L("ProjectArabicName")</label>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Project English Name</span>
+                                <input class="validate form-control" type="text" name="projectEnglishName" id="projectEnglishName" value="@Model.ProjectOutput.projectEnglishName" required maxlength="255" minlength="2" placeholder="@L("ProjectEnglishName")">
+                                @*<label class="form-label">@L("ProjectEnglishName")</label>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Donor</span>
+                                @Html.DropDownListFor(m => Model.ProjectOutput.donorId, new SelectList(Model.Donors, "Id", "DonorName"), "Select Donor", htmlAttributes: new { @class = "form-control", @name = "donorId", @id = "donorId", @required = "true" })  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <span class="help-block text-muted small-font">Budget</span>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="number" value="@Model.ProjectOutput.budget" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="budget" name="budget" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Contractor</span>
+                                <input class="validate form-control" type="text" name="contractor" id="contractor" value="@Model.ProjectOutput.contractor" required maxlength="255" minlength="2" placeholder="@L("Contractor")">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Location From Map</span>
+                                <input class="validate form-control" type="text" name="locationFromMap" id="locationFromMap" value="@Model.ProjectOutput.locationFromMap" placeholder="@L("LocationFromMap")">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Project Period (Days)</span>
+                                <input class="validate form-control" type="text" name="projectPeriod" id="projectPeriod" value="@Model.ProjectOutput.projectPeriod" required maxlength="255"  placeholder="@L("ProjectPeriod")">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Year</span>
+                                <input class="validate form-control" type="text" name="year" id="year" value="@Model.ProjectOutput.year" required maxlength="255" minlength="4" placeholder="@L("Year")">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Number Of Families</span>
+                                <input class="validate form-control" type="text" name="numberOfFamilies" id="numberOfFamilies" value="@Model.ProjectOutput.numberOfFamilies" required maxlength="255"  placeholder="@L("NumberOfFamilies")">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Number Of Individuals</span>
+                                <input class="validate form-control" type="text" name="numberOfIndividuals" id="numberOfIndividuals" value="@Model.ProjectOutput.numberOfIndividuals" required maxlength="255"  placeholder="@L("NumberOfIndividuals")">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Location</span>
+                                <input class="validate form-control" type="text" name="location" id="location" value="@Model.ProjectOutput.location" required maxlength="255"  placeholder="@L("Location")">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Number Of Floors</span>
+                                <input class="validate form-control" type="text" name="numberOfFloors" id="numberOfFloors" value="@Model.ProjectOutput.numberOfFloors" required maxlength="255"  placeholder="@L("NumberOfFloors")">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span class="help-block text-muted small-font">Number Of Rooms</span>
+                                <input class="validate form-control" type="text" name="numberOfRooms" id="numberOfRooms" value="@Model.ProjectOutput.numberOfRooms" required maxlength="255"  placeholder="@L("NumberOfRooms")">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span>Is the building has a roof?:</span>
+                                @{
+                                    var checkedValue = Model.ProjectOutput.isBuildingHasRoof;
+                                    if (checkedValue == null || checkedValue == 0)
+                                    {
+                                        @Html.RadioButton("isBuildingHasRoof", 0, new { id = "no", @checked = true })
+                                        @Html.Label("no", "No")
+
+                                        @Html.RadioButton("isBuildingHasRoof", 1, new { id = "yes" })
+                                        @Html.Label("yes", "Yes")
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButton("isBuildingHasRoof", 0, new { id = "no" })
+                                        @Html.Label("no", "No")
+
+                                        @Html.RadioButton("isBuildingHasRoof", 1, new { id = "yes", @checked = true })
+                                        @Html.Label("yes", "Yes")
+
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <span>Is the building in housh?:</span>
+                                @{
+                                    var isChecked = Model.ProjectOutput.IsBuildingInHoush;
+                                    if (isChecked == null || isChecked == 0)
+                                    {
+                                        @Html.RadioButton("IsBuildingInHoush", 0, new { id = "no1", @checked = true })
+                                        @Html.Label("no1", "No")
+
+                                        @Html.RadioButton("IsBuildingInHoush", 1, new { id = "yes1" })
+                                        @Html.Label("yes1", "Yes")
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButton("IsBuildingInHoush", 0, new { id = "no1" })
+                                        @Html.Label("no1", "No")
+
+                                        @Html.RadioButton("IsBuildingInHoush", 1, new { id = "yes1", @checked = true })
+                                        @Html.Label("yes1", "Yes")
+
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+            @*<button type="submit" onclick="location.href='@Url.Action("SaveConvertedApplication", "Applications")'" class="btn btn-primary waves-effect">@L("Save")</button>*@
+            <button type="submit" formaction="@Url.Action("UpdateProject", "Applications")" class="btn btn-primary waves-effect">@L("Save")</button>
+        </div>
+    </form>
+</div>

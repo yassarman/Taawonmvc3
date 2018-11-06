@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TaawonMVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Application">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="phoneNumber1" Type="Int32" Nullable="false" />
+    <Property Name="phoneNumber2" Type="Int32" />
+    <Property Name="isThereFundingOrPreviousRestoration" Type="Byte" Nullable="false" />
+    <Property Name="previousRestorationSource" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="isThereInterestedRepairingEntity" Type="Byte" Nullable="false" />
+    <Property Name="interestedRepairingEntityName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="interventionTypeId" Type="Int32" Nullable="false" />
+    <Property Name="restorationTypeIds" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="otherOwnershipType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="otherRestorationType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="propertyStatusDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="requiredRestoration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="DeleterUserId" Type="Int64" />
+    <Property Name="DeletionTime" Type="DateTime" Precision="3" />
+    <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+    <Property Name="LastModifierUserId" Type="Int64" />
+    <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatorUserId" Type="Int64" />
+    <Property Name="buildingId" Type="Int32" Nullable="false" />
+    <Property Name="PropertyOwnerShipId" Type="Int32" Nullable="false" />
+    <Property Name="buildingUnitId" Type="Int32" Nullable="false" />
+    <Property Name="ApplicationStatus" Type="Byte" />
+    <Property Name="RejectDate" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsApplicationConvertedToProject" Type="Boolean" />
+    <Property Name="projectId" Type="Int32" />
+    <Property Name="housingSince" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="projectArabicName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="projectEnglishName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="budget" Type="Double" />
+    <Property Name="contractor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="locationFromMap" Type="Double" />
+    <Property Name="projectPeriod" Type="Int32" />
+    <Property Name="year" Type="Int32" />
+    <Property Name="numberOfFamilies" Type="Int32" />
+    <Property Name="numberOfIndividuals" Type="Int32" />
+    <Property Name="location" Type="Double" />
+    <Property Name="numberOfRooms" Type="Int32" />
+    <Property Name="isBuildingHasRoof" Type="Byte" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="DeleterUserId" Type="Int64" />
+    <Property Name="DeletionTime" Type="DateTime" Precision="3" />
+    <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+    <Property Name="LastModifierUserId" Type="Int64" />
+    <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatorUserId" Type="Int64" />
+    <Property Name="numberOfFloors" Type="Int32" />
+    <Property Name="IsBuildingInHoush" Type="Byte" />
+    <Property Name="donorId" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="TaawonMVCEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Applications" EntityType="Self.Application" />
+    <EntitySet Name="Projects" EntityType="Self.Project" />
+  </EntityContainer>
+</Schema>

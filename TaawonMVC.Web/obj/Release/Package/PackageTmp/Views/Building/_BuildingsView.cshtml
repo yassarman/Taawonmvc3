@@ -1,0 +1,162 @@
+﻿@model TaawonMVC.Web.Models.Building.BuildingViewModel
+@{
+    Layout = null;
+    SetAntiForgeryCookie();
+}
+
+@Html.AntiForgeryToken()
+<style>
+
+    #wrapper {
+        margin: 0 auto;
+        padding: 0px;
+        text-align: center;
+        width: 995px;
+    }
+
+        #wrapper h1 {
+            margin-top: 50px;
+            font-size: 45px;
+            color: #585858;
+        }
+
+            #wrapper h1 p {
+                font-size: 20px;
+            }
+
+    #table_detail {
+        width: 500px;
+        text-align: left;
+        border-collapse: collapse;
+        color: #2E2E2E;
+        border: #A4A4A4;
+    }
+
+        #table_detail tr:hover {
+            background-color: #F2F2F2;
+        }
+
+        #table_detail .hidden_row {
+            display: none;
+        }
+</style>
+<script type="text/javascript" src="../../lib/Flot/jquery.js"></script>
+<script type="text/javascript">
+    function show_hide_row(row, rowCount) {
+        var headerNum = row + 1000000;
+        $("#" + headerNum).toggle();
+        for (i = 0; i < rowCount; i++) {
+            row = row + i;
+            $("#" + row).toggle();
+        }
+
+    }
+</script>
+<script src="Index.js"></script>
+<table class="table" id="table_detail">
+
+
+    <thead>
+        <tr>
+
+            <th>@L("numOfBuildingUnits")</th>
+            <th>@L("numOfFloors")</th>
+            <th>@L("streetName")</th>
+            <th>@L("buildingNo")</th>
+            <th>@L("neighborhoodID")</th>
+            <th>@L("buildingTypeID")</th>
+            <th>@L("buildingUsesID")</th>
+            <th>@L("BuildingName")</th>
+            <th>@L("IsInHoush")</th>
+            <th>@L("GISMAP")</th>
+            <th>@L("houshProperty")</th>
+            <th>@L("houshName")</th>
+            <th>@L("X")</th>
+            <th>@L("Y")</th>
+            <th>@L("Actions")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var rownum = 0;
+            var headerNum = 1000000;
+
+        }
+        @foreach (var Building in Model.Buildings)
+
+        {
+            var BuildingUnits = Model.BuildingUnitsOutputs;
+            var buildingUnits = from BU in BuildingUnits where BU.BuildingId == Building.Id select BU;
+            var rowCount = buildingUnits.Count();
+            rownum += 100;
+            headerNum += 100;
+            <tr onclick="show_hide_row(@rownum, @rowCount);">
+
+                <td>@Building.numOfBuildingUnits</td>
+                <td>@Building.numOfFloors</td>
+                <td>@Building.streetName</td>
+                <td>@Building.buildingNo</td>
+                <td>@Building.NeighboorHood.EName</td>
+                <td>@Building.BuildingType.EName</td>
+                <td>@Building.BuildingUses.UsedFor</td>
+                <td>@Building.buildingName</td>
+                <td>@Building.isInHoush</td>
+                <td>@Building.GISMAP</td>
+                <td>@Building.houshProperty</td>
+                <td>@Building.houshName</td>
+                <td>@Building.X</td>
+                <td>@Building.Y</td>
+                <td class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        @*<li><a href="#" class="waves-effect waves-block edit-Units" data-Building-id="@Building.Id" data-toggle="modal" data-target="#UploadFilesModal"><i class="material-icons">edit</i>@L("ViewBuildingUnits")</a></li>*@
+                        <li><a href="#" class="waves-effect waves-block edit-user" data-BuildingType-id="@Building.Id" data-toggle="modal" data-target="#UserEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                        <li><a href="#" class="waves-effect waves-block delete-user" data-BuildingType-id="@Building.Id" data-BuildingType-name="@Building.buildingName"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr id="@headerNum" class="hidden_row" bgcolor="#8c9aaf">
+                <th>@L("ResidentName")</th>
+                <th>@L("ResidenceStatus")</th>
+                <th>@L("NumberOfFamilyMembers")</th>
+                <th>@L("Floor")</th>
+                @*<th>@L("UnitContents")</th>*@
+                <th>@L("Actions")</th>
+            </tr>
+
+
+
+            var unitCounts = 0;
+            foreach (var BuildingUnit in buildingUnits)
+
+            {
+                var UnitsCount = rownum + unitCounts;
+                <tr id="@UnitsCount" class="hidden_row" bgcolor="#e0e3e5">
+                    <td>@BuildingUnit.ResidentName</td>
+                    <td>@BuildingUnit.ResidenceStatus</td>
+                    <td>@BuildingUnit.NumberOfFamilyMembers</td>
+                    <td>@BuildingUnit.Floor</td>
+                    <td class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">menu</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#" class="waves-effect waves-block edit-BuildingUnit" data-BuildingUnit-id="@BuildingUnit.Id" data-toggle="modal" data-target="#UnitEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                            <li><a href="#" class="waves-effect waves-block delete-unit" data-BuildingUnit-id="@BuildingUnit.Id" data-BuildingUnit-name="@BuildingUnit.ResidentName"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                unitCounts += 1;
+            }
+        }
+    </tbody>
+</table>
+<button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#UserCreateModal">
+    <i class="material-icons">add</i>
+</button>
+
+
+
+

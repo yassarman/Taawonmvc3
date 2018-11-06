@@ -1,0 +1,44 @@
+﻿@using TaawonMVC.Web.Models.Common.Modals
+@model TaawonMVC.Web.Models.Applications.ApplicationsViewModel
+@{
+    Layout = null;
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("ConvertToProject")))
+
+<div class="modal-body">
+    <form name="ConvertToProjectForm" role="form" novalidate class="form-validation">
+       
+
+        <input type="hidden" name="appSelectedIds" id="appSelectedIds" value="@Model.ApplicationsSelectedIds" />
+        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+            <li role="presentation" class="active"><a href="#create-user-details" data-toggle="tab">Property Ownership Details</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane animated fadeIn active" id="create-user-details">
+                <div class="row clearfix" style="margin-top:10px;">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="projectArabicName" id="projectArabicName" required maxlength="255" minlength="2" placeholder="@L("ProjectArabicName")">
+                                @*<label class="form-label">@L("ProjectArabicName")</label>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input class="form-control" type="text" name="projectEnglishName" id="projectEnglishName" required maxlength="255" minlength="2" placeholder="@L("ProjectEnglishName")">
+                                @*<label class="form-label">@L("ProjectEnglishName")</label>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+            @*<button type="submit" onclick="location.href='@Url.Action("SaveConvertedApplication", "Applications")'" class="btn btn-primary waves-effect">@L("Save")</button>*@
+            <button type="submit" formaction="@Url.Action("SaveConvertedApplication", "Applications")" class="btn btn-primary waves-effect">@L("Convert")</button>
+        </div>
+    </form>
+</div>

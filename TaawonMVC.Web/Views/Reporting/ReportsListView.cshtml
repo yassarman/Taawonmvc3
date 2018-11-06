@@ -1,0 +1,66 @@
+﻿@using TaawonMVC.Web.Models.Common.Modals
+@model TaawonMVC.Web.Models.Reporting.ReportingViewModel
+@{
+    ViewBag.Title = "ReportsListView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Reports List</h2>
+<br />
+<br />
+<div  style="background-color:lightgray">
+
+<div class="row clearfix p-t-10 p-l-10">
+    <div class="col-sm-2">
+        <div class="form-group form-float">
+            <div class="form-line">
+                @*<span class="help-block text-muted small-font">Donor</span>*@
+                <button type="button" onclick="location.href='@Url.Action("ProjectRptView", "Reporting")'" class="btn btn-primary waves-effect">Projects Report</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group form-float">
+            <div class="form-line">
+                @*<span class="help-block text-muted small-font">Year</span>*@
+                <button type="button" onclick="location.href='@Url.Action("", "Reporting")'" class="btn btn-primary waves-effect">Add New Report </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group form-float">
+            <div class="form-line">
+                @*<span class="help-block text-muted small-font">Year</span>*@
+                <button type="button" onclick="location.href='@Url.Action("", "Reporting")'" class="btn btn-primary waves-effect">Add New Report </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group form-float">
+            <div class="form-line">
+                @*<span class="help-block text-muted small-font">Year</span>*@
+                <button type="button" onclick="location.href='@Url.Action("", "Reporting")'" class="btn btn-primary waves-effect">Add New Report </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group form-float">
+            <div class="form-line">
+                @*<span class="help-block text-muted small-font">Year</span>*@
+                <button type="button" onclick="location.href='@Url.Action("", "Reporting")'" class="btn btn-primary waves-effect">Add New Report </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group form-float">
+            <div class="form-line">
+                @*<span class="help-block text-muted small-font">Year</span>*@
+                <button type="button" onclick="location.href='@Url.Action("", "Reporting")'" class="btn btn-primary waves-effect">Add New Report </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+

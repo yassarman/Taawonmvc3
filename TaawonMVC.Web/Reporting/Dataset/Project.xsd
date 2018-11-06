@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Project" targetNamespace="http://tempuri.org/Project.xsd" xmlns:mstns="http://tempuri.org/Project.xsd" xmlns="http://tempuri.org/Project.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection ConnectionStringObject="Data Source=.;Initial Catalog=TaawonMVC;Persist Security Info=True;User ID=sa;Password=sawelfare$;MultipleActiveResultSets=True;Application Name=EntityFramework" IsAppSettingsProperty="false" Modifier="Public" Name="TaawonMVCEntities (TaawonMVC.Web)" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ViewProjectTableAdapter" GeneratorDataComponentClassName="ViewProjectTableAdapter" Name="ViewProject" UserDataComponentName="ViewProjectTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TaawonMVCEntities (TaawonMVC.Web)" DbObjectName="TaawonMVC.dbo.ViewProject" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select * from ViewProject</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="projectArabicName" DataSetColumn="projectArabicName" />
+              <Mapping SourceColumn="projectEnglishName" DataSetColumn="projectEnglishName" />
+              <Mapping SourceColumn="budget" DataSetColumn="budget" />
+              <Mapping SourceColumn="contractor" DataSetColumn="contractor" />
+              <Mapping SourceColumn="locationFromMap" DataSetColumn="locationFromMap" />
+              <Mapping SourceColumn="projectPeriod" DataSetColumn="projectPeriod" />
+              <Mapping SourceColumn="year" DataSetColumn="year" />
+              <Mapping SourceColumn="numberOfFamilies" DataSetColumn="numberOfFamilies" />
+              <Mapping SourceColumn="numberOfIndividuals" DataSetColumn="numberOfIndividuals" />
+              <Mapping SourceColumn="location" DataSetColumn="location" />
+              <Mapping SourceColumn="numberOfRooms" DataSetColumn="numberOfRooms" />
+              <Mapping SourceColumn="isBuildingHasRoof" DataSetColumn="isBuildingHasRoof" />
+              <Mapping SourceColumn="IsDeleted" DataSetColumn="IsDeleted" />
+              <Mapping SourceColumn="DeleterUserId" DataSetColumn="DeleterUserId" />
+              <Mapping SourceColumn="DeletionTime" DataSetColumn="DeletionTime" />
+              <Mapping SourceColumn="LastModificationTime" DataSetColumn="LastModificationTime" />
+              <Mapping SourceColumn="LastModifierUserId" DataSetColumn="LastModifierUserId" />
+              <Mapping SourceColumn="CreationTime" DataSetColumn="CreationTime" />
+              <Mapping SourceColumn="CreatorUserId" DataSetColumn="CreatorUserId" />
+              <Mapping SourceColumn="numberOfFloors" DataSetColumn="numberOfFloors" />
+              <Mapping SourceColumn="IsBuildingInHoush" DataSetColumn="IsBuildingInHoush" />
+              <Mapping SourceColumn="donorId" DataSetColumn="donorId" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BuildingsTableAdapter" GeneratorDataComponentClassName="BuildingsTableAdapter" Name="Buildings" UserDataComponentName="BuildingsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TaawonMVCEntities (TaawonMVC.Web)" DbObjectName="TaawonMVC.dbo.Buildings" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [Buildings] WHERE (([Id] = @Original_Id))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [Buildings] ([buildingID], [numOfBuildingUnits], [numOfFloors], [streetName], [buildingNo], [neighborhoodID], [buildingTypeID], [GISMAP], [houshProperty], [houshName], [X], [Y], [IsDeleted], [DeleterUserId], [DeletionTime], [LastModificationTime], [LastModifierUserId], [CreationTime], [CreatorUserId], [buildingName], [isInHoush], [buildingUsesID]) VALUES (@buildingID, @numOfBuildingUnits, @numOfFloors, @streetName, @buildingNo, @neighborhoodID, @buildingTypeID, @GISMAP, @houshProperty, @houshName, @X, @Y, @IsDeleted, @DeleterUserId, @DeletionTime, @LastModificationTime, @LastModifierUserId, @CreationTime, @CreatorUserId, @buildingName, @isInHoush, @buildingUsesID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@buildingID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="buildingID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@numOfBuildingUnits" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="numOfBuildingUnits" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@numOfFloors" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="numOfFloors" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@streetName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="streetName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@buildingNo" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="buildingNo" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@neighborhoodID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="neighborhoodID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@buildingTypeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="buildingTypeID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@GISMAP" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="GISMAP" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Byte" Direction="Input" ParameterName="@houshProperty" Precision="0" ProviderType="TinyInt" Scale="0" Size="0" SourceColumn="houshProperty" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@houshName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="houshName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Double" Direction="Input" ParameterName="@X" Precision="0" ProviderType="Float" Scale="0" Size="0" SourceColumn="X" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Double" Direction="Input" ParameterName="@Y" Precision="0" ProviderType="Float" Scale="0" Size="0" SourceColumn="Y" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@IsDeleted" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@DeleterUserId" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="DeleterUserId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DeletionTime" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DeletionTime" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastModificationTime" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastModificationTime" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@LastModifierUserId" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="LastModifierUserId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@CreationTime" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="CreationTime" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@CreatorUserId" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="CreatorUserId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@buildingName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="buildingName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@isInHoush" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="isInHoush" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@buildingUsesID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="buildingUsesID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT *
+FROM  Buildings</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [Buildings] SET [buildingID] = @buildingID, [numOfBuildingUnits] = @numOfBuildingUnits, [numOfFloors] = @numOfFloors, [streetName] = @streetName, [buildingNo] = @buildingNo, [neighborhoodID] = @neighborhoodID, [buildingTypeID] = @buildingTypeID, [GISMAP] = @GISMAP, [houshProperty] = @houshProperty, [houshName] = @houshName, [X] = @X, [Y] = @Y, [IsDeleted] = @IsDeleted, [DeleterUserId] = @DeleterUserId, [DeletionTime] = @DeletionTime, [LastModificationTime] = @LastModificationTime, [LastModifierUserId] = @LastModifierUserId, [CreationTime] = @CreationTime, [CreatorUserId] = @CreatorUserId, [buildingName] = @buildingName, [isInHoush] = @isInHoush, [buildingUsesID] = @buildingUsesID WHERE (([Id] = @Original_Id))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@buildingID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="buildingID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@numOfBuildingUnits" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="numOfBuildingUnits" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@numOfFloors" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="numOfFloors" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@streetName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="streetName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@buildingNo" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="buildingNo" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@neighborhoodID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="neighborhoodID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@buildingTypeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="buildingTypeID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@GISMAP" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="GISMAP" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Byte" Direction="Input" ParameterName="@houshProperty" Precision="0" ProviderType="TinyInt" Scale="0" Size="0" SourceColumn="houshProperty" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@houshName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="houshName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Double" Direction="Input" ParameterName="@X" Precision="0" ProviderType="Float" Scale="0" Size="0" SourceColumn="X" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Double" Direction="Input" ParameterName="@Y" Precision="0" ProviderType="Float" Scale="0" Size="0" SourceColumn="Y" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@IsDeleted" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@DeleterUserId" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="DeleterUserId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DeletionTime" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DeletionTime" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastModificationTime" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastModificationTime" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@LastModifierUserId" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="LastModifierUserId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@CreationTime" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="CreationTime" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@CreatorUserId" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="CreatorUserId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@buildingName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="buildingName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@isInHoush" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="isInHoush" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@buildingUsesID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="buildingUsesID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="buildingID" DataSetColumn="buildingID" />
+              <Mapping SourceColumn="numOfBuildingUnits" DataSetColumn="numOfBuildingUnits" />
+              <Mapping SourceColumn="numOfFloors" DataSetColumn="numOfFloors" />
+              <Mapping SourceColumn="streetName" DataSetColumn="streetName" />
+              <Mapping SourceColumn="buildingNo" DataSetColumn="buildingNo" />
+              <Mapping SourceColumn="neighborhoodID" DataSetColumn="neighborhoodID" />
+              <Mapping SourceColumn="buildingTypeID" DataSetColumn="buildingTypeID" />
+              <Mapping SourceColumn="GISMAP" DataSetColumn="GISMAP" />
+              <Mapping SourceColumn="houshProperty" DataSetColumn="houshProperty" />
+              <Mapping SourceColumn="houshName" DataSetColumn="houshName" />
+              <Mapping SourceColumn="X" DataSetColumn="X" />
+              <Mapping SourceColumn="Y" DataSetColumn="Y" />
+              <Mapping SourceColumn="IsDeleted" DataSetColumn="IsDeleted" />
+              <Mapping SourceColumn="DeleterUserId" DataSetColumn="DeleterUserId" />
+              <Mapping SourceColumn="DeletionTime" DataSetColumn="DeletionTime" />
+              <Mapping SourceColumn="LastModificationTime" DataSetColumn="LastModificationTime" />
+              <Mapping SourceColumn="LastModifierUserId" DataSetColumn="LastModifierUserId" />
+              <Mapping SourceColumn="CreationTime" DataSetColumn="CreationTime" />
+              <Mapping SourceColumn="CreatorUserId" DataSetColumn="CreatorUserId" />
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="buildingName" DataSetColumn="buildingName" />
+              <Mapping SourceColumn="isInHoush" DataSetColumn="isInHoush" />
+              <Mapping SourceColumn="buildingUsesID" DataSetColumn="buildingUsesID" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Project" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Project" msprop:Generator_UserDSName="Project">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ViewProject" msprop:Generator_TableClassName="ViewProjectDataTable" msprop:Generator_TableVarName="tableViewProject" msprop:Generator_RowChangedName="ViewProjectRowChanged" msprop:Generator_TablePropName="ViewProject" msprop:Generator_RowDeletingName="ViewProjectRowDeleting" msprop:Generator_RowChangingName="ViewProjectRowChanging" msprop:Generator_RowEvHandlerName="ViewProjectRowChangeEventHandler" msprop:Generator_RowDeletedName="ViewProjectRowDeleted" msprop:Generator_RowClassName="ViewProjectRow" msprop:Generator_UserTableName="ViewProject" msprop:Generator_RowEvArgName="ViewProjectRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="projectArabicName" msprop:Generator_ColumnVarNameInTable="columnprojectArabicName" msprop:Generator_ColumnPropNameInRow="projectArabicName" msprop:Generator_ColumnPropNameInTable="projectArabicNameColumn" msprop:Generator_UserColumnName="projectArabicName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="projectEnglishName" msprop:Generator_ColumnVarNameInTable="columnprojectEnglishName" msprop:Generator_ColumnPropNameInRow="projectEnglishName" msprop:Generator_ColumnPropNameInTable="projectEnglishNameColumn" msprop:Generator_UserColumnName="projectEnglishName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="budget" msprop:Generator_ColumnVarNameInTable="columnbudget" msprop:Generator_ColumnPropNameInRow="budget" msprop:Generator_ColumnPropNameInTable="budgetColumn" msprop:Generator_UserColumnName="budget" type="xs:double" minOccurs="0" />
+              <xs:element name="contractor" msprop:Generator_ColumnVarNameInTable="columncontractor" msprop:Generator_ColumnPropNameInRow="contractor" msprop:Generator_ColumnPropNameInTable="contractorColumn" msprop:Generator_UserColumnName="contractor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="locationFromMap" msprop:Generator_ColumnVarNameInTable="columnlocationFromMap" msprop:Generator_ColumnPropNameInRow="locationFromMap" msprop:Generator_ColumnPropNameInTable="locationFromMapColumn" msprop:Generator_UserColumnName="locationFromMap" type="xs:double" minOccurs="0" />
+              <xs:element name="projectPeriod" msprop:Generator_ColumnVarNameInTable="columnprojectPeriod" msprop:Generator_ColumnPropNameInRow="projectPeriod" msprop:Generator_ColumnPropNameInTable="projectPeriodColumn" msprop:Generator_UserColumnName="projectPeriod" type="xs:int" minOccurs="0" />
+              <xs:element name="year" msprop:Generator_ColumnVarNameInTable="columnyear" msprop:Generator_ColumnPropNameInRow="year" msprop:Generator_ColumnPropNameInTable="yearColumn" msprop:Generator_UserColumnName="year" type="xs:int" minOccurs="0" />
+              <xs:element name="numberOfFamilies" msprop:Generator_ColumnVarNameInTable="columnnumberOfFamilies" msprop:Generator_ColumnPropNameInRow="numberOfFamilies" msprop:Generator_ColumnPropNameInTable="numberOfFamiliesColumn" msprop:Generator_UserColumnName="numberOfFamilies" type="xs:int" minOccurs="0" />
+              <xs:element name="numberOfIndividuals" msprop:Generator_ColumnVarNameInTable="columnnumberOfIndividuals" msprop:Generator_ColumnPropNameInRow="numberOfIndividuals" msprop:Generator_ColumnPropNameInTable="numberOfIndividualsColumn" msprop:Generator_UserColumnName="numberOfIndividuals" type="xs:int" minOccurs="0" />
+              <xs:element name="location" msprop:Generator_ColumnVarNameInTable="columnlocation" msprop:Generator_ColumnPropNameInRow="location" msprop:Generator_ColumnPropNameInTable="locationColumn" msprop:Generator_UserColumnName="location" type="xs:double" minOccurs="0" />
+              <xs:element name="numberOfRooms" msprop:Generator_ColumnVarNameInTable="columnnumberOfRooms" msprop:Generator_ColumnPropNameInRow="numberOfRooms" msprop:Generator_ColumnPropNameInTable="numberOfRoomsColumn" msprop:Generator_UserColumnName="numberOfRooms" type="xs:int" minOccurs="0" />
+              <xs:element name="isBuildingHasRoof" msprop:Generator_ColumnVarNameInTable="columnisBuildingHasRoof" msprop:Generator_ColumnPropNameInRow="isBuildingHasRoof" msprop:Generator_ColumnPropNameInTable="isBuildingHasRoofColumn" msprop:Generator_UserColumnName="isBuildingHasRoof" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_UserColumnName="IsDeleted" type="xs:boolean" />
+              <xs:element name="DeleterUserId" msprop:Generator_ColumnVarNameInTable="columnDeleterUserId" msprop:Generator_ColumnPropNameInRow="DeleterUserId" msprop:Generator_ColumnPropNameInTable="DeleterUserIdColumn" msprop:Generator_UserColumnName="DeleterUserId" type="xs:long" minOccurs="0" />
+              <xs:element name="DeletionTime" msprop:Generator_ColumnVarNameInTable="columnDeletionTime" msprop:Generator_ColumnPropNameInRow="DeletionTime" msprop:Generator_ColumnPropNameInTable="DeletionTimeColumn" msprop:Generator_UserColumnName="DeletionTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastModificationTime" msprop:Generator_ColumnVarNameInTable="columnLastModificationTime" msprop:Generator_ColumnPropNameInRow="LastModificationTime" msprop:Generator_ColumnPropNameInTable="LastModificationTimeColumn" msprop:Generator_UserColumnName="LastModificationTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastModifierUserId" msprop:Generator_ColumnVarNameInTable="columnLastModifierUserId" msprop:Generator_ColumnPropNameInRow="LastModifierUserId" msprop:Generator_ColumnPropNameInTable="LastModifierUserIdColumn" msprop:Generator_UserColumnName="LastModifierUserId" type="xs:long" minOccurs="0" />
+              <xs:element name="CreationTime" msprop:Generator_ColumnVarNameInTable="columnCreationTime" msprop:Generator_ColumnPropNameInRow="CreationTime" msprop:Generator_ColumnPropNameInTable="CreationTimeColumn" msprop:Generator_UserColumnName="CreationTime" type="xs:dateTime" />
+              <xs:element name="CreatorUserId" msprop:Generator_ColumnVarNameInTable="columnCreatorUserId" msprop:Generator_ColumnPropNameInRow="CreatorUserId" msprop:Generator_ColumnPropNameInTable="CreatorUserIdColumn" msprop:Generator_UserColumnName="CreatorUserId" type="xs:long" minOccurs="0" />
+              <xs:element name="numberOfFloors" msprop:Generator_ColumnVarNameInTable="columnnumberOfFloors" msprop:Generator_ColumnPropNameInRow="numberOfFloors" msprop:Generator_ColumnPropNameInTable="numberOfFloorsColumn" msprop:Generator_UserColumnName="numberOfFloors" type="xs:int" minOccurs="0" />
+              <xs:element name="IsBuildingInHoush" msprop:Generator_ColumnVarNameInTable="columnIsBuildingInHoush" msprop:Generator_ColumnPropNameInRow="IsBuildingInHoush" msprop:Generator_ColumnPropNameInTable="IsBuildingInHoushColumn" msprop:Generator_UserColumnName="IsBuildingInHoush" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="donorId" msprop:Generator_ColumnVarNameInTable="columndonorId" msprop:Generator_ColumnPropNameInRow="donorId" msprop:Generator_ColumnPropNameInTable="donorIdColumn" msprop:Generator_UserColumnName="donorId" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Buildings" msprop:Generator_TableClassName="BuildingsDataTable" msprop:Generator_TableVarName="tableBuildings" msprop:Generator_RowChangedName="BuildingsRowChanged" msprop:Generator_TablePropName="Buildings" msprop:Generator_RowDeletingName="BuildingsRowDeleting" msprop:Generator_RowChangingName="BuildingsRowChanging" msprop:Generator_RowEvHandlerName="BuildingsRowChangeEventHandler" msprop:Generator_RowDeletedName="BuildingsRowDeleted" msprop:Generator_RowClassName="BuildingsRow" msprop:Generator_UserTableName="Buildings" msprop:Generator_RowEvArgName="BuildingsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="buildingID" msprop:Generator_ColumnVarNameInTable="columnbuildingID" msprop:Generator_ColumnPropNameInRow="buildingID" msprop:Generator_ColumnPropNameInTable="buildingIDColumn" msprop:Generator_UserColumnName="buildingID" type="xs:int" />
+              <xs:element name="numOfBuildingUnits" msprop:Generator_ColumnVarNameInTable="columnnumOfBuildingUnits" msprop:Generator_ColumnPropNameInRow="numOfBuildingUnits" msprop:Generator_ColumnPropNameInTable="numOfBuildingUnitsColumn" msprop:Generator_UserColumnName="numOfBuildingUnits" type="xs:int" />
+              <xs:element name="numOfFloors" msprop:Generator_ColumnVarNameInTable="columnnumOfFloors" msprop:Generator_ColumnPropNameInRow="numOfFloors" msprop:Generator_ColumnPropNameInTable="numOfFloorsColumn" msprop:Generator_UserColumnName="numOfFloors" type="xs:int" />
+              <xs:element name="streetName" msprop:Generator_ColumnVarNameInTable="columnstreetName" msprop:Generator_ColumnPropNameInRow="streetName" msprop:Generator_ColumnPropNameInTable="streetNameColumn" msprop:Generator_UserColumnName="streetName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="buildingNo" msprop:Generator_ColumnVarNameInTable="columnbuildingNo" msprop:Generator_ColumnPropNameInRow="buildingNo" msprop:Generator_ColumnPropNameInTable="buildingNoColumn" msprop:Generator_UserColumnName="buildingNo" type="xs:int" />
+              <xs:element name="neighborhoodID" msprop:Generator_ColumnVarNameInTable="columnneighborhoodID" msprop:Generator_ColumnPropNameInRow="neighborhoodID" msprop:Generator_ColumnPropNameInTable="neighborhoodIDColumn" msprop:Generator_UserColumnName="neighborhoodID" type="xs:int" />
+              <xs:element name="buildingTypeID" msprop:Generator_ColumnVarNameInTable="columnbuildingTypeID" msprop:Generator_ColumnPropNameInRow="buildingTypeID" msprop:Generator_ColumnPropNameInTable="buildingTypeIDColumn" msprop:Generator_UserColumnName="buildingTypeID" type="xs:int" />
+              <xs:element name="GISMAP" msprop:Generator_ColumnVarNameInTable="columnGISMAP" msprop:Generator_ColumnPropNameInRow="GISMAP" msprop:Generator_ColumnPropNameInTable="GISMAPColumn" msprop:Generator_UserColumnName="GISMAP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="houshProperty" msprop:Generator_ColumnVarNameInTable="columnhoushProperty" msprop:Generator_ColumnPropNameInRow="houshProperty" msprop:Generator_ColumnPropNameInTable="houshPropertyColumn" msprop:Generator_UserColumnName="houshProperty" type="xs:unsignedByte" />
+              <xs:element name="houshName" msprop:Generator_ColumnVarNameInTable="columnhoushName" msprop:Generator_ColumnPropNameInRow="houshName" msprop:Generator_ColumnPropNameInTable="houshNameColumn" msprop:Generator_UserColumnName="houshName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="X" msprop:Generator_ColumnVarNameInTable="columnX" msprop:Generator_ColumnPropNameInRow="X" msprop:Generator_ColumnPropNameInTable="XColumn" msprop:Generator_UserColumnName="X" type="xs:double" />
+              <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:double" />
+              <xs:element name="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_UserColumnName="IsDeleted" type="xs:boolean" />
+              <xs:element name="DeleterUserId" msprop:Generator_ColumnVarNameInTable="columnDeleterUserId" msprop:Generator_ColumnPropNameInRow="DeleterUserId" msprop:Generator_ColumnPropNameInTable="DeleterUserIdColumn" msprop:Generator_UserColumnName="DeleterUserId" type="xs:long" minOccurs="0" />
+              <xs:element name="DeletionTime" msprop:Generator_ColumnVarNameInTable="columnDeletionTime" msprop:Generator_ColumnPropNameInRow="DeletionTime" msprop:Generator_ColumnPropNameInTable="DeletionTimeColumn" msprop:Generator_UserColumnName="DeletionTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastModificationTime" msprop:Generator_ColumnVarNameInTable="columnLastModificationTime" msprop:Generator_ColumnPropNameInRow="LastModificationTime" msprop:Generator_ColumnPropNameInTable="LastModificationTimeColumn" msprop:Generator_UserColumnName="LastModificationTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastModifierUserId" msprop:Generator_ColumnVarNameInTable="columnLastModifierUserId" msprop:Generator_ColumnPropNameInRow="LastModifierUserId" msprop:Generator_ColumnPropNameInTable="LastModifierUserIdColumn" msprop:Generator_UserColumnName="LastModifierUserId" type="xs:long" minOccurs="0" />
+              <xs:element name="CreationTime" msprop:Generator_ColumnVarNameInTable="columnCreationTime" msprop:Generator_ColumnPropNameInRow="CreationTime" msprop:Generator_ColumnPropNameInTable="CreationTimeColumn" msprop:Generator_UserColumnName="CreationTime" type="xs:dateTime" />
+              <xs:element name="CreatorUserId" msprop:Generator_ColumnVarNameInTable="columnCreatorUserId" msprop:Generator_ColumnPropNameInRow="CreatorUserId" msprop:Generator_ColumnPropNameInTable="CreatorUserIdColumn" msprop:Generator_UserColumnName="CreatorUserId" type="xs:long" minOccurs="0" />
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="buildingName" msprop:Generator_ColumnVarNameInTable="columnbuildingName" msprop:Generator_ColumnPropNameInRow="buildingName" msprop:Generator_ColumnPropNameInTable="buildingNameColumn" msprop:Generator_UserColumnName="buildingName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="isInHoush" msprop:Generator_ColumnVarNameInTable="columnisInHoush" msprop:Generator_ColumnPropNameInRow="isInHoush" msprop:Generator_ColumnPropNameInTable="isInHoushColumn" msprop:Generator_UserColumnName="isInHoush" type="xs:boolean" />
+              <xs:element name="buildingUsesID" msprop:Generator_ColumnVarNameInTable="columnbuildingUsesID" msprop:Generator_ColumnPropNameInRow="buildingUsesID" msprop:Generator_ColumnPropNameInTable="buildingUsesIDColumn" msprop:Generator_UserColumnName="buildingUsesID" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ViewProject" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="Buildings_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Buildings" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
